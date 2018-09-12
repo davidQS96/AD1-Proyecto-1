@@ -4,9 +4,10 @@ public class Game {
 	Player player1;
 	Player player2;
 	Board board;
+	ListDots listDots = new ListDots();
 	
-	
-	
+
+
 	public void setBoard(Board board) {
 		this.board = board;
 	}
@@ -26,6 +27,14 @@ public class Game {
 	public Player getPlayer2() {
 		System.out.println("Jugador 2");
 		return player2;
+	}
+
+
+	public void addDot(int x, int y, int owner) {
+		Dot dot = new Dot(x,y,owner);
+		this.board.addDot(x, y,dot);
+		this.listDots.addLast(dot);
+		
 	}
 	
 	

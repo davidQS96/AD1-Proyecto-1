@@ -32,8 +32,9 @@ public class Board {
 			if (temp2 != null) {
 			while(temp2.next != null) {
 				System.out.print(temp2.data + " ");
-				temp2 = temp2.next;
+				temp2 = temp2.next;	
 				}
+			
 			temp= temp.next;
 			}else {
 				break;
@@ -41,6 +42,30 @@ public class Board {
 			}
 			
 		}
+	public void addDot(int x, int y, Dot dot) {
+		if (x < raw && y < column) {
+			NodoList<Object> temp = matrix.first;
+			Nodo<Object> temp2 = null;
+			int i = 0;
+			while(i != x) {
+				temp = temp.next;
+				i++;
+			}
+			List<Object> n = temp.data;
+			temp2 = n.first;
+			int j = 0;
+			while(j != y) {
+				temp2 = temp2.next;
+				j++;
+			}
+			temp2.data = dot;
+			
+			
+		}else {
+			System.out.println("ERROR");
+		}
+		
+	}
 }
 		
 
