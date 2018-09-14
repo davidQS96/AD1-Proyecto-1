@@ -8,6 +8,13 @@ public class Main {
 		 	//Create Board
 		Board board = new Board(4,4);
 		game.board = board;
+		
+			//Add Dot to the matrix
+		game.addDot(1,2,1);
+		game.addDot(1,3,1);
+		game.addDot(0,0,2);
+		game.listDots.printDots();
 		game.board.printBoard();
+		game.board.getData(1, 2);
 	}
 }
