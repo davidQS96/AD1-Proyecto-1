@@ -6,14 +6,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.Scanner;
 
-public class Server {
+public class Server{
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private ServerSocket server;
     private Socket connection;
     
     public Server(){
-        
+                
     }
     
     //Server Setup
