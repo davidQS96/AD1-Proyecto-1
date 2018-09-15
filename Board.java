@@ -12,9 +12,9 @@ public class Board {
 		int i=0;
 		int j=0;
 		while( i!= newraw ){
-			List<Object> list = new List<Object>();
+			ListNodoDot<Object> list = new ListNodoDot<Object>();
 			while(j != newcolumn ){
-				int y = 0;
+				Dot y = null;
 				list.addLast(y);
 				j++;
 			}
@@ -31,19 +31,25 @@ public class Board {
 		NodoList<Object> temp = matrix.first;
 		while(temp.next != null) {
 			System.out.println("  ");
-			List<Object> n = temp.data;
-			Nodo<Object> temp2 = n.first;
+			ListNodoDot<Object> n = temp.data;
+			NodoDot temp2 = n.first;
 			if (temp2 != null) {
 			while(temp2.next != null) {
-				System.out.print(temp2.data + " ");
-				temp2 = temp2.next;
+				if (temp2.data == null) {
+					System.out.print("0" + " ");
+					temp2 = temp2.next;
+				}else {
+					System.out.print(temp2.data.owner + " ");
+					temp2 = temp2.next;
+				}	
 				}
 			temp= temp.next;
 			}else {
 				break;
 			}
-			}
 			
+			}
+		System.out.println(" ");	
 		}
 	/*
 	 * Funcion que agrega un DOT en la posicion x,y
@@ -59,8 +65,8 @@ public class Board {
 				i++;
 			}
 			int j = 0;
-			List<Object> n = temp.data;
-			Nodo<Object> temp2 = n.first;
+			ListNodoDot<Object> n = temp.data;
+			NodoDot temp2 = n.first;
 			while (j != y) {
 				temp2 = temp2.next;
 				j++;
@@ -78,6 +84,7 @@ public class Board {
 	public Dot getData(int x, int y) {
 		if (x >= raw && y >= column) {
 			System.out.println("ERROR");
+			return null;
 		}else {
 			NodoList<Object> temp = matrix.first;
 			int i = 0;
@@ -86,14 +93,18 @@ public class Board {
 				i++;
 			}
 			int j = 0;
-			List<Object> n = temp.data;
-			Nodo<Object> temp2 = n.first;
+			ListNodoDot<Object> n = temp.data;
+			NodoDot temp2 = n.first;
 			while (j != y) {
 				temp2 = temp2.next;
 				j++;
 			}
-			return temp2.data;
-		
+			if(temp2.data == null) {
+				return null;
+			}else {
+			Dot dot = temp2.data;
+			return dot;
+		}
 		}
 	}
 }

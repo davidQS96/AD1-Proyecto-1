@@ -13,8 +13,13 @@ public class Main {
 		game.addDot(1,2,1);
 		game.addDot(1,3,1);
 		game.addDot(0,0,2);
-		game.listDots.printDots();
+		game.addDot(1, 0, 2);
 		game.board.printBoard();
-		game.board.getData(1, 2);
+		game.listDots.printDots();
+		Dot dot = game.board.getData(1, 2);
+		System.out.println(dot.owner);
+		game.findSides();
+		game.listSides.printListSides();
+			
 	}
 }

@@ -2,7 +2,7 @@
 public class ListLists<T> {
 	NodoList<T> first = null;
 	
-public void addLast(List<T> data) {
+public void addLast(ListNodoDot<T> data) {
 	if (first == null) {
 		first = new NodoList<T>(data);
 	}else {

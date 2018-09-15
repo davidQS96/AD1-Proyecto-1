@@ -1,9 +1,9 @@
 
 public class NodoList<T> {
-	List<T> data;
+	ListNodoDot<T> data;
 	NodoList<T> next;
 
-	public NodoList(List<T> data2) {
+	public NodoList(ListNodoDot<T> data2) {
 		this.data = data2;
 		this.next = null;
 	}
