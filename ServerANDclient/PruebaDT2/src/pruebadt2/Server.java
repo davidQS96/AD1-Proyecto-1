@@ -1,4 +1,4 @@
-package pruebadt2;
+/*(package pruebadt2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +12,7 @@ public class Server {
 	/**
      * Runs the application. Pairs up clients that connect.
      */
+/*
     public static void main(String[] args) throws Exception {
         // Using 
         ServerSocket listener = new ServerSocket(65530);
@@ -40,9 +41,11 @@ public class Server {
 		game.board.printBoard();
 		game.board.getData(1, 2);
                 */
+/*
             }
         } finally {
             listener.close();
         }
     }
 }
+*/

@@ -7,6 +7,7 @@ public class Game {
         Player Current;
 	Board board;
 	ListDots listDots = new ListDots();
+	ListSides listSides = new ListSides();
 	
 	
 	
@@ -36,6 +37,9 @@ public class Game {
 		Dot dot = new Dot(x,y,owner);
 		listDots.addLast(dot);
 		board.addDot(x,y,dot);
+	}
+	public void findSides() {
+		listSides = listDots.findSides();
 	}
 	
 	

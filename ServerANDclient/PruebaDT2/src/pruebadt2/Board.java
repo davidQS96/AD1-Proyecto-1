@@ -2,20 +2,20 @@ package pruebadt2;
 
 public class Board {
 	ListLists<Object> matrix = new ListLists<Object>();
-	int row;
+	int raw;
 	int column;
 	
-	public Board(int row, int column) {
-		this.row = row;
+	public Board(int raw, int column) {
+		this.raw = raw;
 		this.column = column;
-		int newrow = row + 1;
+		int newraw = raw + 1;
 		int newcolumn = column +1;
 		int i=0;
 		int j=0;
-		while( i!= newrow ){
-			List<Object> list = new List<Object>();
+		while( i!= newraw ){
+			ListNodoDot<Object> list = new ListNodoDot<Object>();
 			while(j != newcolumn ){
-				int y = 0;
+				Dot y = null;
 				list.addLast(y);
 				j++;
 			}
@@ -32,25 +32,31 @@ public class Board {
 		NodoList<Object> temp = matrix.first;
 		while(temp.next != null) {
 			System.out.println("  ");
-			List<Object> n = temp.data;
-			Nodo<Object> temp2 = n.first;
+			ListNodoDot<Object> n = temp.data;
+			NodoDot temp2 = n.first;
 			if (temp2 != null) {
 			while(temp2.next != null) {
-				System.out.print(temp2.data + " ");
-				temp2 = temp2.next;
+				if (temp2.data == null) {
+					System.out.print("0" + " ");
+					temp2 = temp2.next;
+				}else {
+					System.out.print(temp2.data.owner + " ");
+					temp2 = temp2.next;
+				}	
 				}
 			temp= temp.next;
 			}else {
 				break;
 			}
-			}
 			
+			}
+		System.out.println(" ");	
 		}
 	/*
 	 * Funcion que agrega un DOT en la posicion x,y
 	 */
 	public void addDot(int x, int y, Dot dot) {
-		if (x >= row && y >= column) {
+		if (x >= raw && y >= column) {
 			System.out.println("ERROR");
 		}else {
 			NodoList<Object> temp = matrix.first;
@@ -60,8 +66,8 @@ public class Board {
 				i++;
 			}
 			int j = 0;
-			List<Object> n = temp.data;
-			Nodo<Object> temp2 = n.first;
+			ListNodoDot<Object> n = temp.data;
+			NodoDot temp2 = n.first;
 			while (j != y) {
 				temp2 = temp2.next;
 				j++;
@@ -77,8 +83,9 @@ public class Board {
 	 * contenido en esa posicion.
 	 */
 	public Dot getData(int x, int y) {
-		if (x >= row && y >= column) {
+		if (x >= raw && y >= column) {
 			System.out.println("ERROR");
+			return null;
 		}else {
 			NodoList<Object> temp = matrix.first;
 			int i = 0;
@@ -87,14 +94,18 @@ public class Board {
 				i++;
 			}
 			int j = 0;
-			List<Object> n = temp.data;
-			Nodo<Object> temp2 = n.first;
+			ListNodoDot<Object> n = temp.data;
+			NodoDot temp2 = n.first;
 			while (j != y) {
 				temp2 = temp2.next;
 				j++;
 			}
-			return (Dot) temp2.data;
-		
+			if(temp2.data == null) {
+				return null;
+			}else {
+			Dot dot = temp2.data;
+			return dot;
+		}
 		}
 	}
 }
