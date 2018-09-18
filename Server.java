@@ -1,88 +1,51 @@
-package projecto;
-import java.io.*;
-import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.Scanner;
+/*(package pruebadt2;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 
 public class Server {
-    private ObjectOutputStream output;
-    private ObjectInputStream input;
-    private ServerSocket server;
-    private Socket connection;
-    
-    public Server(){
-        
-    }
-    
-    //Server Setup
-    public void startRunning(){
-        try{
-            server = new ServerSocket(6789, 100);
-            while(true){
-                try{
-                    //connect and play
-                    waitForConnection();
-                    setupStreams();
-                    whilePlaying();
-                }catch(EOFException eofException){
-                    System.out.println("/n Server ended the connection.");
-                }finally{
-                    closeSocket();
-                }
+	/**
+     * Runs the application. Pairs up clients that connect.
+     */
+/*
+    public static void main(String[] args) throws Exception {
+        // Using 
+        ServerSocket listener = new ServerSocket(65530);
+        System.out.println("Poligon Battle is Running");
+        try {
+            while (true) {
+                //Create Players
+                Game game = new Game(new Player('1'), new Player('2'));
+		game.getPlayer1();
+		game.getPlayer2();
+                game.player1.Opponent = game.player2;
+                game.player2.Opponent = game.player1;
+                game.Current = game.player1;
+		 	//Create Board
+		Board board = new Board(4,4);
+		game.board = board;
+                //Start threads for player 1 & 2
+                game.player1.start();
+                game.player2.start();
+		
+			//Add Dot to the matrix
+		/*game.addDot(1,2,1);
+		game.addDot(1,3,1);
+		game.addDot(0,0,2);
+		game.listDots.printDots();
+		game.board.printBoard();
+		game.board.getData(1, 2);
+                */
+/*
             }
-        }catch(IOException ioException){
-            ioException.printStackTrace();
+        } finally {
+            listener.close();
         }
     }
-    
-    //wait for connection, then give connection info
-    private void waitForConnection() throws IOException{
-        System.out.println("Waiting...\n");
-        connection = server.accept();
-        System.out.println("Now connected to " + connection.getInetAddress().getHostAddress());
-    }
-    
-    private void setupStreams() throws IOException{
-        output = new ObjectOutputStream(connection.getOutputStream());
-        output.flush();
-        input = new ObjectInputStream(connection.getInputStream());
-        System.out.println("Streams now setup.");
-    }
-    
-    //Game code goes here
-    private void whilePlaying() throws IOException{
-        System.out.println("Connection Successful");
-        Scanner scanner = new Scanner(System.in);
-        String message = scanner.nextLine();
-        do{
-            //send messages
-            try{
-                message = (String) input.readObject();
-                System.out.println("\n " + message);
-            }catch(ClassNotFoundException classNotFoundException){
-                System.out.println("\n wtf");
-            }
-        }while(!message.equals("END"));
-        
-    }
-    
-    private void closeSocket(){
-        System.out.println("Closing connections...");
-        try{
-            output.close();
-            input.close();
-            connection.close();
-        }catch(IOException ioException){
-            ioException.printStackTrace();
-        }
-    }
-    
-    //Sends message to client
-    private void sendMessage(){
-        
-    }
-    
 }
-
+*/

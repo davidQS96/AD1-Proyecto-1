@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="DotsGUI/src/" kind="src" path=""/>
+	<classpathentry kind="src" path="DotsGUI/src"/>
+	<classpathentry kind="lib" path="C:/Users/Adrián/Desktop/gson-2.8.5.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

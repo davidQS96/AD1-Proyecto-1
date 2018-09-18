@@ -14,7 +14,7 @@ public class ListSides {
 			int x2 = temp.data.finish.x;
 			int y2 = temp.data.finish.y;
 			int owner = temp.data.start.owner;
-			System.out.println("Side= ["+x+","+y+"] and ["+x2+","+y2+"] from"+ owner+ ",");
+			System.out.println("Side= ["+x+","+y+"] and ["+x2+","+y2+"] from "+ owner+ ",");
 			temp = temp.next;
 		}
 		int x = temp.data.start.x;
@@ -23,5 +23,11 @@ public class ListSides {
 		int y2 = temp.data.finish.y;
 		int owner = temp.data.start.owner;
 		System.out.println("Side= ["+x+","+y+"] and ["+x2+","+y2+"] from "+ owner+ ".");
+	}
+	
+	
+	public void findPoligons() {
+		
+		
 	}
 }

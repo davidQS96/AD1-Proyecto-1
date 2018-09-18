@@ -3,6 +3,7 @@ public class Game {
 	//Attributes
 	Player player1;
 	Player player2;
+	char currentPlayer;
 	Board board;
 	ListDots listDots = new ListDots();
 	ListSides listSides = new ListSides();
@@ -17,6 +18,8 @@ public class Game {
 	public  Game(Player player1, Player player2) {
 		this.player1 = player1;
 		this.player2 = player2;
+		player1.setOpponent(player2);
+		player2.setOpponent(player1);
 	}
 
 
