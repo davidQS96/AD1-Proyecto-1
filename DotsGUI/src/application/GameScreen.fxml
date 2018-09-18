@@ -19,16 +19,16 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="759.0" layoutY="50.0" text="Oponente" textFill="#3800c6">
+            <Label layoutX="759.0" layoutY="50.0" onMouseClicked="#beginLine" text="Oponente" textFill="#3800c6">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <HBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="1120.0">
+      <HBox alignment="CENTER" prefHeight="530.0" prefWidth="1120.0">
          <children>
-            <AnchorPane fx:id="gameArea" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="441.0" prefWidth="784.0" />
+            <AnchorPane fx:id="gameArea" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#beginLine" prefHeight="441.0" prefWidth="784.0" />
          </children>
       </HBox>
    </children>
