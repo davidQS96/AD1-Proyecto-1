@@ -17,37 +17,25 @@
       </Label>
       <HBox alignment="CENTER" layoutX="74.0" layoutY="210.0" prefHeight="40.0" prefWidth="252.0" spacing="10.0" style="-fx-background-color: #888888;">
          <children>
-            <TextField fx:id="ipField1" alignment="CENTER" prefWidth="40.0">
-               <font>
-                  <Font size="14.0" />
-               </font></TextField>
+            <TextField fx:id="ipField1" alignment="CENTER" prefWidth="40.0" />
             <Label alignment="BOTTOM_CENTER" text="." textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="ipField2" alignment="CENTER" prefWidth="40.0">
-               <font>
-                  <Font size="14.0" />
-               </font></TextField>
+            <TextField fx:id="ipField2" alignment="CENTER" prefWidth="40.0" />
             <Label alignment="BOTTOM_CENTER" text="." textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="ipField3" alignment="CENTER" prefWidth="40.0">
-               <font>
-                  <Font size="14.0" />
-               </font></TextField>
+            <TextField fx:id="ipField3" alignment="CENTER" prefWidth="40.0" />
             <Label alignment="BOTTOM_CENTER" text="." textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="ipField4" alignment="CENTER" prefWidth="40.0">
-               <font>
-                  <Font size="14.0" />
-               </font></TextField>
+            <TextField fx:id="ipField4" alignment="CENTER" prefWidth="40.0" />
          </children>
          <opaqueInsets>
             <Insets />
