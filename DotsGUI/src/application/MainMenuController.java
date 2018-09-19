@@ -24,7 +24,7 @@ public class MainMenuController {
 						
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
+		} catch(Exception e)  {
 			e.printStackTrace();
 		}
 	}
