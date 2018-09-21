@@ -1,5 +1,13 @@
-
+/*
+ * Clase que contiene una lista de puntos como parametro
+ * esta clase utiliza esta lista para encontrar lineas y 
+ * manejar los datos de la lista de puntos.
+ */
 public class ListDots {
+	/*
+	 * @param listNodoDot : Lista con los puntos de al malla
+	 * @param amountDots : cantidad de elementos en la lista de puntos
+	 */
 	ListNodoDot<Dot> listNodoDot = new ListNodoDot<Dot>();
 	int amountDots = 0;
 	
@@ -21,6 +29,10 @@ public class ListDots {
 		System.out.println("X = "+ temp.data.x+ ", Y = "+ temp.data.y+", owener = "+ temp.data.owner+"." );
 	}	
 	
+	/*
+	 * Funcion que utiliza los datos de la lista de puntos, para buscar lineas
+	 * en la malla, si encuentra lineas, las reotrnara detro de una lista de lados.
+	 */
 	public ListSides findSides() {
 		int i = 0;
 		ListSides list = new ListSides();

@@ -1,6 +1,17 @@
-
+/*
+ * Clase que contiene los datos generales del juego, además es el 
+ * encoargado de llamar el resto gran cantidad de clases.
+ */
 public class Game {
-	//Attributes
+	/*
+	 * @param player1 : Es el primero en conectarse al server por medio de sockets
+	 * @param player2 : Es el Segundo en conectarse al server por medio de sockets
+	 * @param currentPlayer : es el siguente en poner punto en la malla.
+	 * @param board : es la clase encargada de manejar la matriz del juego o malla.
+	 * @param listDots : es la lista que contiene todos los puntos que los jugadores
+	 * colocan en la malla
+	 * @param listSides : son todos los lados encontrados, generados por una funcion.
+	 */
 	Player player1;
 	Player player2;
 	char currentPlayer;
@@ -9,12 +20,13 @@ public class Game {
 	ListSides listSides = new ListSides();
 	
 	
-	
 	public void setBoard(Board board) {
 		this.board = board;
 	}
 
-
+	/*
+	 * Contructor
+	 */
 	public  Game(Player player1, Player player2) {
 		this.player1 = player1;
 		this.player2 = player2;
@@ -33,12 +45,22 @@ public class Game {
 		return player2;
 	}
 
-
+	/*
+	 * Funcion que agrega un punto a la malla
+	 * esta funcion agregara el punto a la malla y a la lista de puntos
+	 * @param x : la fila en que se desea el punto
+	 * @param y : la columna en que se desea el punto
+	 * @param owner: La pertenencia del punto
+	 */
 	public void addDot(int x, int y, int owner) {
 		Dot dot = new Dot(x,y,owner);
 		listDots.addLast(dot);
 		board.addDot(x,y,dot);
 	}
+	
+	/*
+	 * Fucion que llama a otra dentro de la clase ListSides.
+	 */
 	public void findSides() {
 		listSides = listDots.findSides();
 	}
