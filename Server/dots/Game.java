@@ -1,7 +1,7 @@
-/*
- * Clase que contiene los datos generales del juego, además es el 
- * encoargado de llamar el resto gran cantidad de clases.
- */
+package dots;
+
+import networking.ServerThread;
+
 public class Game {
 	/*
 	 * @param player1 : Es el primero en conectarse al server por medio de sockets
@@ -12,8 +12,8 @@ public class Game {
 	 * colocan en la malla
 	 * @param listSides : son todos los lados encontrados, generados por una funcion.
 	 */
-	Player player1;
-	Player player2;
+	public Player player1;
+	public Player player2;
 	char currentPlayer;
 	Board board;
 	ListDots listDots = new ListDots();
@@ -30,8 +30,8 @@ public class Game {
 	public  Game(Player player1, Player player2) {
 		this.player1 = player1;
 		this.player2 = player2;
-		player1.setOpponent(player2);
-		player2.setOpponent(player1);
+		//player1.setOpponent(player2);
+		//player2.setOpponent(player1);
 	}
 
 
@@ -44,6 +44,14 @@ public class Game {
 		System.out.println("Jugador 2");
 		return player2;
 	}
+
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
 
 	/*
 	 * Funcion que agrega un punto a la malla

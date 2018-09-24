@@ -1,5 +1,6 @@
 package networking;
 
+import dots.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,12 +30,18 @@ public class ServerThread extends Thread {
  
             do {
                 text = reader.readLine();
-                if(text.equals("Que mae")){
-                    writer.println("Todo bien mae");
-                }else if(text.equals("Por dicha mae")){
-                    writer.println("Ah , que dicha que dicha");
+                String clientIP = socket.getRemoteSocketAddress().toString();
+                if(text.startsWith("UPDATE")){
+                    String command = "Actualizacion de malla";
+                    System.out.println("Server sending: " + command + " to " + clientIP);
+                    writer.println(command);
+                }else if(text.startsWith("LINE")){
+                    String command = "DRAW x1,y,x2,y2";
+                    System.out.println("Server sending: " + command + " to " + clientIP);
+                    writer.println(command);
                 }else{
-                    writer.println("Jodase mae");
+                    System.out.println("Wasn't able to resolve: " + "(" + text + ")" + " from " + clientIP);
+                    writer.println("RESEND");
                 }
  
             } while (!text.equals("QUIT"));
