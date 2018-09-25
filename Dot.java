@@ -9,8 +9,8 @@ public class Dot {
 	int owner;
 	/*
 	 * Contructor
-	 * @param x : Posicion en la matriz con respecto a las filas
-	 * @param y : Posicion en la matriz con respecto a las columnas
+	 * @param x : Posicion en la matriz con respecto a las fila
+	 * @param y : Posicion en la matriz con respecto a las columna
 	 * @param owner: pertenencia del punto (1 jugador 1, 2 juagador 2)
 	 */
 	public Dot(int x, int y, int owner) {

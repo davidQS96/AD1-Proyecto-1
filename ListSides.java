@@ -120,8 +120,8 @@ public class ListSides {
 				}
 			Dot dot2S = temp.data.start;
 			if (dot1F == dot2S) {
-				temp.data.start.printDot();
-				side.start.printDot();
+				//temp.data.start.printDot();
+				//side.start.printDot(); Aqui se agrega a una lista
 				return temp.data;
 				}
 			if(temp.next == null) {
