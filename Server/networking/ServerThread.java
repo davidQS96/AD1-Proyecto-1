@@ -1,5 +1,8 @@
 package networking;
 
+import com.google.gson.GsonBuilder;
+import dots.Board;
+import dots.Game;
 import dots.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,10 +14,17 @@ import java.net.Socket;
 
 
 public class ServerThread extends Thread {
+    private Game game;
+    private Player assignedPlayer;
     private Socket socket;
 
-    public ServerThread(Socket socket) {
+    public ServerThread(Socket socket, Game game) {
         this.socket = socket;
+        this.game = game;
+    }
+    
+    public void setAssignedPlayer(Player player){
+        this.assignedPlayer = player;
     }
     
     public void run(){
@@ -32,9 +42,11 @@ public class ServerThread extends Thread {
                 text = reader.readLine();
                 String clientIP = socket.getRemoteSocketAddress().toString();
                 if(text.startsWith("UPDATE")){
-                    String command = "Actualizacion de malla";
+                    String command = "UPDATE";
+                    String updateJson = new GsonBuilder().create().toJson(game.getBoard());
+                    System.out.println(updateJson);
                     System.out.println("Server sending: " + command + " to " + clientIP);
-                    writer.println(command);
+                    writer.println("BOARD " + updateJson);
                 }else if(text.startsWith("LINE")){
                     String command = "DRAW x1,y,x2,y2";
                     System.out.println("Server sending: " + command + " to " + clientIP);
@@ -44,7 +56,7 @@ public class ServerThread extends Thread {
                     writer.println("RESEND");
                 }
  
-            } while (!text.equals("QUIT"));
+            }while (!text.equals("QUIT"));
  
             socket.close();
         } catch (IOException ex) {

@@ -5,8 +5,18 @@ import java.io.*;
 import java.util.Scanner;
  
 public class DotsClient {
+    
+    private boolean myTurn;
+
+    public boolean isMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(boolean myTurn) {
+        this.myTurn = myTurn;
+    }
  
-    public void inicia() {
+    public void inicia() throws IOException {
         //if (args.length < 2) return;
  
         String hostname = "localhost";
@@ -25,15 +35,34 @@ public class DotsClient {
                 Scanner sc = new Scanner(System.in);
                 
                 text = sc.nextLine();;
- 
-                writer.println(text);
+                
+                if(text.startsWith("UPDATE")){
+                    requestUpdate(text, writer);
+                }else if(text.startsWith("LINE")){
+                    drawPermission(text, writer);
+                }else if(text.startsWith("QUIT")){
+                    quitMe(text, writer);
+                }else if(text.startsWith("TURN")){
+                    turn(text);
+                }
  
                 InputStream input = socket.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
  
-                String time = reader.readLine();
+                String command = reader.readLine();
+                System.out.println("Server sent: " + command);
+                if(command.startsWith("BOARD")){
+                    if(command.startsWith("BOARD ROW")){
+                        giveRows(command);
+                    }else if(text.startsWith("COLUMN", 6)){
+                        giveColumns(command.substring(6));
+                    requestDrawing(command);
+                    }
+                }else if(command.startsWith("DRAW")){
+                    processLine(command);
+                }
  
-                System.out.println(time);
+                
  
             } while (!text.equals("bye"));
  
@@ -47,5 +76,41 @@ public class DotsClient {
  
             System.out.println("I/O error: " + ex.getMessage());
         }
+    }
+    
+    private void requestUpdate(String command, PrintWriter typer){
+         typer.println(command);
+    }
+    
+    private void drawPermission(String command, PrintWriter typer){
+        typer.println(command);
+    }
+
+    private void quitMe(String command, PrintWriter typer) {
+        typer.println(command);
+    }
+
+    private void processLine(String command) {
+        if(command.equals("DRAW INVALITE")){
+            //If invalite send GUI a String "INVALITE"
+        } else { 
+            //If vaid pass coordinates to GUI's draw function
+        }
+    }
+
+    private void requestDrawing(String command) {
+        //Send grid in String to GUI
+    }
+
+    private void turn(String text) {
+        System.out.println(text.substring(text.lastIndexOf(" ") + 1));
+    }
+
+    private void giveRows(String command) {
+       //pass rows to GUI
+    }
+
+    private void giveColumns(String substring) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

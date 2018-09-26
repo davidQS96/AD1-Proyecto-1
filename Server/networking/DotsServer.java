@@ -11,25 +11,30 @@ public class DotsServer {
     Game game;
     
     public static void main(String[] args) throws IOException{
-        //if(args.length < 1) return;
-        
-        int port = 65356;
+        DotsServer dotsServer = new DotsServer();
+        dotsServer.startServer(65356);
+    }
+    
+    public void startServer(int port){
         
        try (ServerSocket serverSocket = new ServerSocket(port)) {
  
             System.out.println("Server is listening on port " + port);
  
             while (true) {
+                Game game = new Game();
                 Socket socket1 = serverSocket.accept();
-                Player P1 = new Player(new ServerThread(socket1));
+                ServerThread st1 = new ServerThread(socket1, game);
                 String clientIP1 = socket1.getRemoteSocketAddress().toString();
                 System.out.println("New client connected " + clientIP1);
+                st1.setAssignedPlayer(game.getPlayer1());
+                st1.start();
                 Socket socket2 = serverSocket.accept();
-                Player P2 = new Player(new ServerThread(socket2));
+                ServerThread st2 = new ServerThread(socket2, game);
                 String clientIP2 = socket2.getRemoteSocketAddress().toString();
                 System.out.println("New client connected " + clientIP2);
-                
-                Game game = new Game(P1, P2);
+                st2.setAssignedPlayer(game.getPlayer2());
+                st2.start();
                 
                 
             }
@@ -38,6 +43,6 @@ public class DotsServer {
             System.out.println("Server exception: " + ex.getMessage());
             ex.printStackTrace();
         }
-}
+    }
     
 }
