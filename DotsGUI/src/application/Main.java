@@ -1,11 +1,12 @@
 package application;
 	
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.shape.Line;
 
 public class Main extends Application {
 	@Override
@@ -23,6 +24,32 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		launch(args);
+//		Scanner reader = new Scanner(System.in);
+//		int a;
+//		
+//		boolean sigue = true;
+//		while(sigue) {
+//			a = reader.nextInt();
+//			System.out.println(a);
+//			
+//			if(a < 0) {
+//				sigue = false;
+//			}
+//		}
+//		sigue = true;
+		
+		launch(args);		
+		
+//		while(sigue) {
+//			a = reader.nextInt();
+//			System.out.println(a);
+//			
+//			if(a < 0) {
+//				sigue = false;
+//			}
+//		}
+//		
+//		reader.close();
+		
 	}
 }

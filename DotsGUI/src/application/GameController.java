@@ -1,13 +1,13 @@
 package application;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 
 public class GameController {
 	
@@ -33,15 +33,11 @@ public class GameController {
 			for(int column = 0; column < colNum; column++ ) {
 				
 				//Parte para crear dots
-				double radius = 4;
-				double posX = padding[0] + distDots[0] * column;
-				double posY = padding[1] + distDots[1] * row;
+				int radius = 4;
+				double[] dotPos = getGameAreaCoordinates(new int[] {column, row});
 				Paint fillColor = Color.BLACK;
 				
-				Circle dot_i = new Circle(posX, posY, radius, fillColor);
-				//Button button_i = new Button();
-				//button_i.prefHeight(radius + 4);
-				//button_i.prefHeight(radius + 4);
+				Circle dot_i = new Circle(dotPos[0], dotPos[1], radius, fillColor);
 				gameArea.getChildren().add(dot_i);
 				
 			}
@@ -49,7 +45,7 @@ public class GameController {
 	}
 
 	@FXML
-    private void beginLine(MouseEvent event){
+    private void beginLine(MouseEvent event) throws Exception {
 		double posX = event.getX();
 		double posY = event.getY();
 		
@@ -66,12 +62,80 @@ public class GameController {
 				 }else {
 					 isDrawingLine = false;
 					 Line tempLine = new Line(prevPos[0], prevPos[1], realDotSearch(colNum, posX, 0), realDotSearch(rowNum, posY, 1));
-					 tempLine.setStyle("-fx-stroke: red;");
+					 if(true) {
+						 tempLine.setStyle("-fx-stroke: red;");
+					 }else {
+						 tempLine.setStyle("-fx-stroke: blue;");
+					 }
 					 gameArea.getChildren().add(tempLine);
+					 
+					 drawPolygon(new int[][] {{1,1},{1,2},{2,2},{5,3}});	
+					 drawLine(new int[][] {{1,4},{4,4}});
+					 
+					 
 				 }
 			}
 		}
     }
+	
+//	public void receiveData(String command) {
+//		if()
+//	}
+	
+	private double[] getGameAreaCoordinates(int[] dotIndex) {
+		if (dotIndex.length == 2) {
+			int xIndex = dotIndex[0];
+			int yIndex = dotIndex[1];
+			double[] dotCoordinates = new double[2];
+			
+			dotCoordinates[0] = padding[0] + distDots[0] * xIndex;
+			dotCoordinates[1] = padding[1] + distDots[1] * yIndex;
+			
+			return dotCoordinates;
+		}else {
+			return null;
+		}
+		
+	}
+	
+	public void drawLine(int[][] vertexArray) {
+		Double[] lineInput = new Double[4];
+		for(int i = 0; i < 2; i++ ) {
+			double[] vertexCoordinates = getGameAreaCoordinates(vertexArray[i]);			
+			lineInput[2 * i] =  vertexCoordinates[0];
+			lineInput[2 * i + 1] = vertexCoordinates[1];
+		}
+				
+		Line connetionLine = new Line(lineInput[0], lineInput[1], lineInput[2], lineInput[3]);
+		
+		connetionLine.setFill(Color.RED);
+		connetionLine.setStroke(Color.RED);
+		
+		System.out.println("Esta a punto de dibujar un poligono");
+		
+		gameArea.getChildren().add(connetionLine);
+	}
+	
+	public void drawPolygon(int[][] vertexArray) throws Exception {
+		Double[] polygonInput = new Double[2 * vertexArray.length];
+		for(int i = 0; i < vertexArray.length; i++ ) {
+			double[] vertexCoordinates = getGameAreaCoordinates(vertexArray[i]);			
+			polygonInput[2 * i] =  vertexCoordinates[0];
+			polygonInput[2 * i + 1] = vertexCoordinates[1];
+		}
+				
+		Polygon closedShape = new Polygon();
+		closedShape.getPoints().addAll(polygonInput);
+		
+		closedShape.setFill(Color.RED);
+		closedShape.setStrokeWidth(3);
+		closedShape.setStroke(Color.BLACK);	
+		
+		System.out.println("Esta a punto de dibujar un poligono");
+		
+		gameArea.getChildren().add(closedShape);
+		
+	}
 	
 	private double realDotSearch(Integer numDots, double mousePos, Integer axisNum) {
 		double minDist = gameAreaSize[axisNum];
@@ -90,4 +154,16 @@ public class GameController {
 		
 		return -1;
 	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
