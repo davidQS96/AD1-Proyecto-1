@@ -43,6 +43,7 @@ public class ListDots {
 			int y = temp.data.y;
 			int o = temp.data.owner;
 			int j = 0;
+			int block = 0;
 			while (j <= amountDots) {
 				int x2 = temp2.data.x;
 				int y2 = temp2.data.y;
@@ -59,9 +60,19 @@ public class ListDots {
 				}if (x == x2 && (y+1) == y2 && o == o2) {
 					Side side = new Side(temp.data, temp2.data);
 					list.addLast(side);
+					block++;
 				//Lineas verticales
 				}if ((x+1)== x2 && y == y2 && o == o2) {
 					Side side = new Side(temp.data, temp2.data);
+					list.addLast(side);
+					block++;
+				//Líneas Diamoganales pendiente Negativa
+				}if ((x+1) == x2 && (y+1) == y2 && o == o2 && block == 0) {
+					Side side = new Side(temp.data, temp2.data);
+					list.addLast(side);
+				//Líneas Diagonales Pendiente Positiva
+				}if((x-1) == x2 && (y-1) == y2 && o == o2 && block == 0) {
+					Side side = new Side(temp2.data, temp.data);
 					list.addLast(side);
 				}
 				if (temp2.next == null) {
@@ -74,6 +85,7 @@ public class ListDots {
 			if(temp.next == null) {
 				break;
 			}else {
+				block = 0;
 				temp = temp.next;
 				i++;
 			}

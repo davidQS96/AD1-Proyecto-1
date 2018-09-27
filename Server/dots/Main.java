@@ -16,10 +16,8 @@ public class Main {
 			//Add Dot to the matrix
 		game.addDot(1,1,1);
 		game.addDot(2,1,1);
-		game.addDot(3,1,1);
 		game.addDot(1,2,1);
 		game.addDot(3,2,1);
-		game.addDot(1,3,1);
 		game.addDot(2,3,1);
 		game.addDot(3,3,1);
 		game.board.printBoard();
