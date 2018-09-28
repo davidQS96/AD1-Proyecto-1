@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #882244;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ConnOptController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="34.0" prefHeight="58.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" text="Opciones de conexion" textAlignment="CENTER" textFill="#235422">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="74.0" layoutY="210.0" prefHeight="40.0" prefWidth="252.0" spacing="10.0" style="-fx-background-color: #888888;">
+         <children>
+            <TextField fx:id="ipField1" alignment="CENTER" prefWidth="40.0" />
+            <Label alignment="BOTTOM_CENTER" text="." textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="ipField2" alignment="CENTER" prefWidth="40.0" />
+            <Label alignment="BOTTOM_CENTER" text="." textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="ipField3" alignment="CENTER" prefWidth="40.0" />
+            <Label alignment="BOTTOM_CENTER" text="." textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="ipField4" alignment="CENTER" prefWidth="40.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <Label layoutX="10.0" layoutY="10.0" text="." />
+      <HBox alignment="CENTER" layoutX="74.0" layoutY="305.0" prefHeight="40.0" prefWidth="252.0" spacing="10.0" style="-fx-background-color: #888888;">
+         <children>
+            <TextField fx:id="portField" alignment="CENTER" prefHeight="25.0" prefWidth="116.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <Label layoutX="74.0" layoutY="287.0" style="-fx-background-color: #ffffff;" text="Puerto:" textFill="#4400ff">
+         <font>
+            <Font name="Consolas Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="74.0" layoutY="192.0" style="-fx-background-color: #ffffff;" text="IP:" textFill="#4400ff">
+         <font>
+            <Font name="Consolas Bold" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="saveConfigButton" layoutX="116.0" layoutY="413.0" mnemonicParsing="false" onAction="#saveAndGetConnConfig" text="Guardar configuracion">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
