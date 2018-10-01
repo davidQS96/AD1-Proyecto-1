@@ -7,7 +7,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -25,11 +28,12 @@ public class GameController {
         private BufferedReader reader;
         private OutputStream output;
         private PrintWriter writer;
+        private char player = ' ';
 	
 	@FXML
 	private AnchorPane gameArea; //Pane en donde se lleva a cabo el juego
-	private Integer rowNum = 5; //Numero de filas de puntos
-	private Integer colNum = 8; //Numero de columnas de puntos
+	private Integer rowNum; //Numero de filas de puntos
+	private Integer colNum; //Numero de columnas de puntos
 	private Integer[] gameAreaSize = {784, 441}; //Dimensiones del area de juego
 	private Integer[] padding = {0, 0}; //X, Y
 	private Integer[] distDots = new Integer[2];
@@ -44,31 +48,11 @@ public class GameController {
         }
 	
 	public void initialize() throws IOException { //Metodo que se llama cuando se abre la ventana de juego
-            try(Socket socket = new Socket(host, port)){
-                
-            OutputStream output = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(output, true);
- 
             
-            String text;
- 
-            do {
-                text = "UPDATE";
-                writer.println(text);
-                
-                InputStream input = socket.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                
-                String command = reader.readLine();
-                
-                //JSON code here
- 
-                
- 
-            } while (!text.equals("END"));
- 
-            socket.close();
-            }
+            String command = askServer("UPDATE");
+            System.out.println(player);
+            
+            
 		distDots[0] = Math.round((gameAreaSize[0] - 2 * padding[0])/(colNum - 1));
 		distDots[1] = Math.round((gameAreaSize[1] - 2 * padding[1])/(rowNum - 1));
 		
@@ -113,8 +97,7 @@ public class GameController {
 					 }
 					 gameArea.getChildren().add(tempLine);
 					 
-					 drawPolygon(new int[][] {{1,1},{1,2},{2,2},{5,3}});	
-					 drawLine(new int[][] {{1,4},{4,4}});
+					 
 					 
 					 
 				 }
@@ -143,6 +126,7 @@ public class GameController {
 	}
 	
 	public void drawLine(int[][] vertexArray) {
+            
 		Double[] lineInput = new Double[4];
 		for(int i = 0; i < 2; i++ ) {
 			double[] vertexCoordinates = getGameAreaCoordinates(vertexArray[i]);			
@@ -198,6 +182,72 @@ public class GameController {
 		
 		return -1;
 	}
+
+    private String askServer(String text) throws IOException {
+        try(Socket socket = new Socket(host, port)){
+                System.out.println(socket.isClosed());
+                System.out.println("Logro asignar el socket");
+                System.out.println("Entro a la funcion");
+            
+            System.out.println(socket.isClosed());
+                
+            OutputStream output = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter(output, true);
+            
+            System.out.println("Creo el output");
+            
+            String command;
+ 
+            writer.println(text);
+            
+            System.out.println("Envio el mensaje");
+            
+
+            InputStream input = socket.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+
+            command = reader.readLine();
+
+            if(command.startsWith("UPDATE")){
+                player = command.charAt(7);
+                colNum = Integer.parseInt(String.valueOf(command.charAt(9)));
+                rowNum = Integer.parseInt(String.valueOf(command.charAt(11)));
+                output.close();
+                input.close();
+                writer.close();
+                reader.close();
+                socket.close();
+                return command;
+            }else if(command.startsWith("DRAW")){
+                command = command.substring(5);
+                output.close();
+                input.close();
+                writer.close();
+                reader.close();
+                socket.close();
+                return command;
+            }else if(command.startsWith("TURN")){
+                command = command.substring(5);
+                output.close();
+                input.close();
+                writer.close();
+                reader.close();
+                socket.close();
+                return command;
+            }else if(command.startsWith("NUMBER")){
+                output.close();
+                input.close();
+                writer.close();
+                reader.close();
+                this.player = command.charAt(7);
+            }
+            }
+            
+        
+            
+            return null;
+        
+    }
 	
 	
 	
