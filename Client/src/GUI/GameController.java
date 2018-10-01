@@ -1,6 +1,13 @@
 package GUI;
 
 import client.DotsClient;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -11,12 +18,13 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 
 public class GameController {
-    
-        private DotsClient client;
-
-    public void setClient(DotsClient client) {
-        this.client = client;
-    }
+    //Networking variables
+        private String host = "127.0.0.1";
+        private int port = 65356;
+        private InputStream input;
+        private BufferedReader reader;
+        private OutputStream output;
+        private PrintWriter writer;
 	
 	@FXML
 	private AnchorPane gameArea; //Pane en donde se lleva a cabo el juego
@@ -30,8 +38,37 @@ public class GameController {
 	private Integer hAllow =  dotRadius + 20;
 	private boolean isDrawingLine = false;
 	private double[] prevPos = new double[2];
+        
+        public void setNetworkStuff(){
+            
+        }
 	
-	public void initialize() { //Metodo que se llama cuando se abre la ventana de juego
+	public void initialize() throws IOException { //Metodo que se llama cuando se abre la ventana de juego
+            try(Socket socket = new Socket(host, port)){
+                
+            OutputStream output = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter(output, true);
+ 
+            
+            String text;
+ 
+            do {
+                text = "UPDATE";
+                writer.println(text);
+                
+                InputStream input = socket.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                
+                String command = reader.readLine();
+                
+                //JSON code here
+ 
+                
+ 
+            } while (!text.equals("END"));
+ 
+            socket.close();
+            }
 		distDots[0] = Math.round((gameAreaSize[0] - 2 * padding[0])/(colNum - 1));
 		distDots[1] = Math.round((gameAreaSize[1] - 2 * padding[1])/(rowNum - 1));
 		

@@ -1,5 +1,12 @@
 package GUI;
 
+//Networking Imports
+import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.OutputStream;
+
 import client.DotsClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +15,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ConnOptController {
+    //Networking variables
+        private String host = "127.0.0.1";
+        private int port = 65356;
+        private InputStream input;
+        private BufferedReader reader;
+        private OutputStream output;
+        private PrintWriter writer;
 	
 	@FXML private TextField ipField1;
 	@FXML private TextField ipField2;
@@ -16,6 +30,10 @@ public class ConnOptController {
 	@FXML private TextField portField;
 	@FXML private Button saveConfigButton;
         private DotsClient client;
+        
+    public void setNetworkStuff(){
+        
+        }
 
     public DotsClient getClient() {
         return client;
