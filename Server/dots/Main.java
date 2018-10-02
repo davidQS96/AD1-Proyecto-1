@@ -14,25 +14,16 @@ public class Main {
 		game.board = board;
 		
 			//Add Dot to the matrix
-		game.addDot(1,1,1);
-		game.addDot(2,1,1);
-		game.addDot(1,2,1);
-		game.addDot(3,2,1);
-		game.addDot(2,3,1);
-		game.addDot(3,3,1);
+		
+		game.addSide(1,1,2,1,1);
+		game.addSide(1,1,1,2,1);
+		game.addSide(2,1,2,2,1);
+		game.addSide(1,2,2,2,2);
 		game.board.printBoard();
 		game.listDots.printDots();
-		Dot dot = game.board.getData(1, 2);
-		System.out.println(dot.owner);
-		game.findSides();
+	
 		game.listSides.printListSides();
 		
-		
-			//Gson
-		Gson gson = new Gson();
-		String test = gson.toJson(board);
-		System.out.println(test);
-		game.listSides.findPoligons();
-		game.listSides.printListPolygons();
+		game.printListPolygons();
 	}
 }

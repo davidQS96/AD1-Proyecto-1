@@ -52,17 +52,66 @@ public class Game {
 	 * @param y : la columna en que se desea el punto
 	 * @param owner: La pertenencia del punto
 	 */
-	public void addDot(int x, int y, int owner) {
+	public Dot addDot(int x, int y, int owner) {
 		Dot dot = new Dot(x,y,owner);
-		listDots.addLast(dot);
-		board.addDot(x,y,dot);
+		if(listDots.isDot(dot) == false) {
+			listDots.addLast(dot);
+			board.addDot(x,y,dot);
+		}
+		return dot;
 	}
 	
 	/*
 	 * Fucion que llama a otra dentro de la clase ListSides.
 	 */
-	public void findSides() {
-		listSides = listDots.findSides();
+	public boolean findSides(Dot dot) {
+		listSides = listDots.findSides(dot);
+		if (listDots.getCheckLast() != 0) {
+			listDots.setCheckLast(0);
+			return true;
+		}
+		return false;
+		
+	}
+
+	public void printListPolygons() {
+		System.out.println("Poligonos de Player 1");
+		listSides.printListPolygons(1);
+		System.out.println("Poligonos de Player 2");
+		listSides.printListPolygons(2);
+	}
+
+	public void addSide(int x1, int y1, int x2, int y2, int owner) {
+		Dot dot1 = addDot(x1,y1,owner);
+		Dot dot2 = addDot(x2,y2,owner);
+		Side side = null;
+		//horizontales
+		if(x1 == x2) {
+			if (y1+1 ==y2) {
+				side = new Side(dot1,dot2);
+			}else if (y1-1 == y2){
+				side = new Side(dot2,dot1);
+			}
+		//verticales
+		}else if (y1 == y2) {
+			if (x1+1  == x2) {
+				side = new Side(dot1,dot2);
+			}else if (x1-1 == x2){
+				side = new Side(dot2,dot1);
+			}
+		//Diagonal negativa y negativa
+		}else if (x1 < x2 && y1 < y2 && x1+1 == x2 && y1+1 ==y2) {
+			side = new Side(dot1,dot2);
+		}else if(x1 > x2 && y1 > y2 && x1-1 == x2 && y1-1 == y2){
+			side = new Side(dot2,dot1);
+		//Diagonales Positivas
+		}else if (x1 > x2 && y1 < y2 && x1-1 == x2 && y1+1 == y2) {
+			side = new Side(dot1,dot2);
+		}else if(x1 < x2 && y1 > y2 && x1+1 == x2 && x2-1 == y2) {
+			side = new Side(dot2,dot1);
+		}
+		listSides.addLast(side);
+		listSides.findPoligons(dot2);
 	}
 	
 	
