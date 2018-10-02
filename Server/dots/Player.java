@@ -11,6 +11,9 @@ public class Player {
 	 * @param oponent : es el jugador que esta en contra, el otro cliente
 	 */
 	int points;
+	public void setPoints(int points) {
+		this.points = points;
+	}
 	char number;
 	Player Opponent;
 
@@ -23,6 +26,8 @@ public void setOpponent(Player opponent) {
  */
 public Player(char number) {
 	this.number = number;
+	
+	
 	
 }
 	
