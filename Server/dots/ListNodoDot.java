@@ -1,3 +1,5 @@
+package dots;
+
 /*
  *Clase ListDots: Lista anidada usando especificamente nodos con puntos como datos
  */

@@ -1,7 +1,7 @@
-/*
- * Clase que contiene los datos generales del juego, además es el 
- * encoargado de llamar el resto gran cantidad de clases.
- */
+package dots;
+
+import com.google.gson.*;
+
 public class Game {
 	/*
 	 * @param player1 : Es el primero en conectarse al server por medio de sockets
@@ -12,12 +12,35 @@ public class Game {
 	 * colocan en la malla
 	 * @param listSides : son todos los lados encontrados, generados por una funcion.
 	 */
-	Player player1;
-	Player player2;
-	char currentPlayer;
+	Player player1 = new Player('1');
+	Player player2 = new Player('2');
+	char currentPlayer = '1';
 	Board board;
+        private int playersConnected = 0;
+        private boolean isFull = false;
+        private boolean hasFinished = false;
+
+    public boolean HasFinished() {
+        return hasFinished;
+    }
+
+    public void setHasFinished(boolean hasFinished) {
+        this.hasFinished = hasFinished;
+    }
+
+    public boolean isIsFull() {
+        return isFull;
+    }
 	ListDots listDots = new ListDots();
 	ListSides listSides = new ListSides();
+        
+        public void addPlayerConnected() {
+        if(playersConnected <= 1){
+        this.playersConnected += 1;
+        }if(playersConnected == 2){
+            isFull = true;
+        }
+    }
 	
 	
 	public void setBoard(Board board) {
@@ -27,11 +50,8 @@ public class Game {
 	/*
 	 * Contructor
 	 */
-	public  Game(Player player1, Player player2) {
-		this.player1 = player1;
-		this.player2 = player2;
-		player1.setOpponent(player2);
-		player2.setOpponent(player1);
+	public  Game(int row, int column) {
+            this.board = new Board(row, column);
 	}
 
 
@@ -113,6 +133,14 @@ public class Game {
 		listSides.addLast(side);
 		listSides.findPoligons(dot2);
 	}
+
+    public Board getBoard() {
+        return this.board;
+    }
+
+    public String getListSides() {
+        return new Gson().toJson(this.listSides);
+    }
 	
 	
 }

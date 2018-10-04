@@ -1,3 +1,5 @@
+package dots;
+
 /*
  * Clase NodoDot: clase necesaria para hacer listas de puntos
  * esta clase maneja especificamente datos tipo Dot

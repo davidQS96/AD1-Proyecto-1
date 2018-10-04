@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.OutputStream;
 
-import client.DotsClient;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,19 +29,10 @@ public class ConnOptController {
 	@FXML private TextField ipField4;
 	@FXML private TextField portField;
 	@FXML private Button saveConfigButton;
-        private DotsClient client;
         
     public void setNetworkStuff(){
         
         }
-
-    public DotsClient getClient() {
-        return client;
-    }
-
-    public void setClient(DotsClient client) {
-        this.client = client;
-    }
 	
 	public String getServerIP() {
 		int field1 = Integer.getInteger(ipField1.getText());
@@ -49,7 +40,7 @@ public class ConnOptController {
         int field3 = Integer.getInteger(ipField3.getText());
         int field4 = Integer.getInteger(ipField4.getText());
         if((0 < field1 && field1 < 255) && (0 < field2 && field2 < 255) && (0 < field3 && field3 < 255) && (0 < field4 && field4 < 255)){
-            client.setHostname(ipField1.getText() + "." + ipField2.getText() + "." + ipField3.getText() + "." + ipField4.getText());
+            System.out.println(ipField1.getText() + "." + ipField2.getText() + "." + ipField3.getText() + "." + ipField4.getText());
             return ipField1.getText() + "." + ipField2.getText() + "." + ipField3.getText() + "." + ipField4.getText();
         }else{ return null;}
 	}

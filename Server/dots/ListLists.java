@@ -1,3 +1,5 @@
+package dots;
+
 /*
  * Clase ListList: es una lista generica de listas
  * el objetivo de esta clase es hace la matriz, 

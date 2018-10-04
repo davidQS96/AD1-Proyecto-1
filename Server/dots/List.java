@@ -1,3 +1,5 @@
+package dots;
+
 /*
  * Clase list: es una lista anidada y generica para uso general
  */

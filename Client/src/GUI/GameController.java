@@ -26,6 +26,7 @@ public class GameController {
     //Networking variables
     private String host = "127.0.0.1";
     private int port = 65356;
+    private Socket socket;
     private InputStream input;
     private BufferedReader reader;
     private OutputStream output;
@@ -39,22 +40,22 @@ public class GameController {
 	private int colNum = 7; //Numero de columnas de puntos
 	private double[] gameAreaSize = {784, 441}; //Dimensiones del area de juego
 	private double[] gridAreaSize = new double[2]; //Dimensiones del grid dentro del gameArea
-	private double[] padding = {0, 0}; //X, Y; distancia entre extremo del área de juego y el del área del grid
+	private double[] padding = {0, 0}; //X, Y; distancia entre extremo del ï¿½rea de juego y el del ï¿½rea del grid
 	private double[] distDots = new double[2]; //Distancia ortogonal entre dots
 	private double dotRadius = 4; //Radio de dots
-	private double[] allowedArea = {dotRadius + 75, dotRadius + 75}; //{lAllow, hAllow}; área en la que un clic cuenta como presionar el dot
-	private boolean isDrawingLine = false; //Condición de estar dibujando línea
+	private double[] allowedArea = {dotRadius + 75, dotRadius + 75}; //{lAllow, hAllow}; ï¿½rea en la que un clic cuenta como presionar el dot
+	private boolean isDrawingLine = false; //Condiciï¿½n de estar dibujando lï¿½nea
 	private double[] prevPos = new double[2]; //Coordenada anterior de una linea (punto inicial)
 	private double[] newPos = new double[2]; //Coordenada siguiente de una linea (punto final)
-	private int[] prevIndex = new int[2]; //Índice de matriz anterior de una linea (punto inicial)
-	private int[] newIndex = new int[2]; //Índice de matriz siguiente de una linea (punto final)
+	private int[] prevIndex = new int[2]; //ï¿½ndice de matriz anterior de una linea (punto inicial)
+	private int[] newIndex = new int[2]; //ï¿½ndice de matriz siguiente de una linea (punto final)
 	    
     public void setNetworkStuff(){
         
     }
 	
 	public void initialize() throws IOException { //Metodo que se llama cuando se abre la ventana de juego
-            
+            socket = new Socket(host, port);
             String command = askServer("UPDATE");
             System.out.println(player);
             
@@ -80,7 +81,7 @@ public class GameController {
 		}		
 	}
 
-	//Método que dibuja una línea del jugador, siempre que esta sea válida
+	//Mï¿½todo que dibuja una lï¿½nea del jugador, siempre que esta sea vï¿½lida
 		@FXML
 	    private void beginLine(MouseEvent event) throws Exception{
 			double posX = event.getX();
@@ -111,7 +112,12 @@ public class GameController {
 						 newPos[0] = realDotSearch(colNum, posX, 0);
 						 newPos[1] = realDotSearch(rowNum, posY, 1);	
 						 newIndex = getDotMatrixIndex(newPos);
-						 
+                                                 String x1 = String.valueOf(prevIndex[0]);
+                                                 String y1 = String.valueOf(prevIndex[1]);
+                                                 String x2 = String.valueOf(newIndex[0]);
+                                                 String y2 = String.valueOf(newIndex[1]);
+                                                 System.out.println("Point to validate : " + x1 + y1 + x2 + y2);
+						 if(askServer("LINE " + player + ' ' + x1 + ',' + y1 + ',' + x2 + ',' + y1).equals("TRUE")){
 						 if(!Arrays.equals(newPos, prevPos)) {
 							 Line tempLine = new Line(prevPos[0], prevPos[1], newPos[0], newPos[1]);
 							 System.out.println("Inicial: x=" + prevPos[0] + " (" + prevIndex[0] + "), y=" + prevPos[1] + " (" + prevIndex[1] + ")");
@@ -126,6 +132,9 @@ public class GameController {
 							 //drawLine(new int[][] {{1,4},{4,4}});
 							 
 						 }
+                                                 } else {
+                                                     System.out.println("No line to draw");
+                                                 }
 					 }
 				}
 			}
@@ -135,7 +144,7 @@ public class GameController {
 //		if()
 //	}
 	
-		//Método que retorna las coordenadas de un punto dentro del área de juego basándose en sus índices de matriz
+		//Mï¿½todo que retorna las coordenadas de un punto dentro del ï¿½rea de juego basï¿½ndose en sus ï¿½ndices de matriz
 		private double[] getGameAreaCoordinates(int[] dotIndex) {
 			if (dotIndex.length == 2) {
 				int xIndex = dotIndex[0];
@@ -152,7 +161,7 @@ public class GameController {
 			
 		}
 		
-		//Método que retorna los índices de matriz de un punto basándose en sus coordenadas dentro del área de juego
+		//Mï¿½todo que retorna los ï¿½ndices de matriz de un punto basï¿½ndose en sus coordenadas dentro del ï¿½rea de juego
 		public int[] getDotMatrixIndex(double[] dotGameAreaCoordinates) {
 			if (dotGameAreaCoordinates.length == 2) {
 				double xCoord = dotGameAreaCoordinates[0];
@@ -169,7 +178,7 @@ public class GameController {
 					
 		}
 	
-		//Método que dibuja una línea con color según el jugador
+		//Mï¿½todo que dibuja una lï¿½nea con color segï¿½n el jugador
 		public void drawLine(int[] initEndpoint, int[] finalEndpoint, boolean isPlayer) {
 			Line connectionLine = new Line(initEndpoint[0], initEndpoint[1], finalEndpoint[0], finalEndpoint[1]);
 			connectionLine.setStrokeWidth(1);
@@ -186,7 +195,7 @@ public class GameController {
 			gameArea.getChildren().add(connectionLine);
 		}
 	
-		//Método que dibuja un polígono completado con color según el que lo haya completado
+		//Mï¿½todo que dibuja un polï¿½gono completado con color segï¿½n el que lo haya completado
 		public void drawPolygon(int[][] vertexArray, boolean isPlayer) throws Exception {
 			Double[] polygonInput = new Double[2 * vertexArray.length];
 			for(int i = 0; i < vertexArray.length; i++ ) {
@@ -212,9 +221,9 @@ public class GameController {
 			
 		}
 	
-		//Método que encuentra las coordenadas reales del punto más cercano al mouse basándose en la posición del mouse
+		//Mï¿½todo que encuentra las coordenadas reales del punto mï¿½s cercano al mouse basï¿½ndose en la posiciï¿½n del mouse
 		private double realDotSearch(int numDots, double mousePos, int axisNum) {
-			//Se asegura que ninguna medida en área de juego resulte mayor a esta distancia mínima.
+			//Se asegura que ninguna medida en ï¿½rea de juego resulte mayor a esta distancia mï¿½nima.
 			double minDist = gameAreaSize[axisNum] + allowedArea[axisNum] / 2;
 			
 			for(int dot_i = 0; dot_i <= numDots; dot_i++ ) {			
@@ -222,7 +231,7 @@ public class GameController {
 				double mouseDist = Math.abs(posDot - mousePos);
 				
 				if (dot_i != numDots){
-					//Se revisa un área rectangular alrededor del punto
+					//Se revisa un ï¿½rea rectangular alrededor del punto
 					if(mouseDist < minDist) { 
 						minDist = mouseDist;				
 						
@@ -240,10 +249,10 @@ public class GameController {
 			
 			return -1;		
 		}
-	}
+	
 
     private String askServer(String text) throws IOException {
-        try(Socket socket = new Socket(host, port)){
+        //try(Socket socket = new Socket(host, port)){
                 System.out.println(socket.isClosed());
                 System.out.println("Logro asignar el socket");
                 System.out.println("Entro a la funcion");
@@ -258,6 +267,7 @@ public class GameController {
             String command;
  
             writer.println(text);
+            writer.flush();
             
             System.out.println("Envio el mensaje");
             
@@ -271,36 +281,30 @@ public class GameController {
                 player = command.charAt(7);
                 colNum = Integer.parseInt(String.valueOf(command.charAt(9)));
                 rowNum = Integer.parseInt(String.valueOf(command.charAt(11)));
-                output.close();
-                input.close();
-                writer.close();
-                reader.close();
-                socket.close();
+                //socket.close();
+                System.out.println(command);
                 return command;
             }else if(command.startsWith("DRAW")){
                 command = command.substring(5);
-                output.close();
-                input.close();
-                writer.close();
-                reader.close();
-                socket.close();
-                return command;
+                if(!command.equals("FALSE")){
+                //socket.close();
+                System.out.println(command);
+                return "TRUE";
+                } else {
+                    System.out.println(command);
+                    return "FALSE";
+                }
             }else if(command.startsWith("TURN")){
                 command = command.substring(5);
-                output.close();
-                input.close();
-                writer.close();
-                reader.close();
-                socket.close();
+                //socket.close();
+                System.out.println(command);
                 return command;
             }else if(command.startsWith("NUMBER")){
-                output.close();
-                input.close();
-                writer.close();
                 reader.close();
+                System.out.println(command);
                 this.player = command.charAt(7);
             }
-            }
+            //}
             
         
             

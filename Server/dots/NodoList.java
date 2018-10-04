@@ -1,3 +1,5 @@
+package dots;
+
 /*
  * clase NodoList: es necesaria para crear listas con listas como datos
  * el dato que contiene son listas con dots como datos.

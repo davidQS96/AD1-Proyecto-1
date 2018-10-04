@@ -1,6 +1,8 @@
+package dots;
+
 /*
  * Clase que contiene una lista generica con lados encontrados en la malla de juego
- * Además de tener funciones que utilizan los datos de esta clase para otras funciones
+ * Ademï¿½s de tener funciones que utilizan los datos de esta clase para otras funciones
  * como la busqueda de poligonos.
  */
 public class ListSides {

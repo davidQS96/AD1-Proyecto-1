@@ -1,5 +1,7 @@
+package dots;
+
 /*
- * Clase punto, esta es la base del juego, los jugadores crearán este tipo de
+ * Clase punto, esta es la base del juego, los jugadores crearï¿½n este tipo de
  * objeto para formar lineas y figuras
  */
 public class Dot {

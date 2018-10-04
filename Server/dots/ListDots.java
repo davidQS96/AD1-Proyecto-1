@@ -1,3 +1,5 @@
+package dots;
+
 /*
  * Clase que contiene una lista de puntos como parametro
  * esta clase utiliza esta lista para encontrar lineas y 
@@ -108,14 +110,14 @@ public class ListDots {
 						check++;
 					}
 					block++;
-				//Líneas Diamoganales pendiente Negativa
+				//Lï¿½neas Diamoganales pendiente Negativa
 				}if ((x+1) == x2 && (y+1) == y2 && block == 0) {
 					Side side = new Side(temp.data, temp2.data);
 					list.addLast(side);
 					if (temp.data == dot || temp2.data == dot) {
 						check++;
 					}
-				//Líneas Diagonales Pendiente Positiva
+				//Lï¿½neas Diagonales Pendiente Positiva
 				}if((x-1) == x2 && (y+1) == y2 && block == 0) {
 					Side side = new Side(temp2.data, temp.data);
 					list.addLast(side);

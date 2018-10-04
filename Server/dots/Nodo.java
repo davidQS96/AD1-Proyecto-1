@@ -1,3 +1,5 @@
+package dots;
+
 /*
  * Clase nodo, clase necesaria para hacer listas anidadas
  * esta clase utiliza generics de java, por lo tanto no posee
