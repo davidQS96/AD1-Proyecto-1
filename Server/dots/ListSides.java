@@ -1,8 +1,6 @@
-package dots;
-
 /*
  * Clase que contiene una lista generica con lados encontrados en la malla de juego
- * Ademï¿½s de tener funciones que utilizan los datos de esta clase para otras funciones
+ * Además de tener funciones que utilizan los datos de esta clase para otras funciones
  * como la busqueda de poligonos.
  */
 public class ListSides {
@@ -241,6 +239,30 @@ public class ListSides {
 		}else {
 			return;
 		}
+	}
+
+	public boolean isSide(Side side) {
+		int i = 0;
+		int x1 = side.start.x;
+		int y1 = side.start.y;
+		int x2 = side.finish.x;
+		int y2 = side.finish.y;
+		Nodo<Side> temp= listSides.first;
+		while (i < amountSides) {
+			int x3 = temp.data.start.x;
+			int y3 = temp.data.start.y;
+			int x4 = temp.data.finish.x;
+			int y4 = temp.data.finish.y;
+			if (x1 == x3 && y1 == y3 && x2 == x4 && y2 == y4) {
+				return false;}
+			if (temp.next == null) {
+				break;
+			}else {
+				temp = temp.next;
+				i++;
+				continue;}
+			}
+		return true;
 	}
 	
 }

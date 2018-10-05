@@ -1,9 +1,5 @@
-package dots;
-
-import com.google.gson.Gson;
-
 /*
- * Clase que contiene los datos generales del juego, ademï¿½s es el 
+ * Clase que contiene los datos generales del juego, además es el 
  * encoargado de llamar el resto gran cantidad de clases.
  */
 public class Game {
@@ -16,15 +12,12 @@ public class Game {
 	 * colocan en la malla
 	 * @param listSides : son todos los lados encontrados, generados por una funcion.
 	 */
-	Player player1 = new Player('1');
-	Player player2 = new Player('2');
+	Player player1;
+	Player player2;
 	char currentPlayer;
 	Board board;
 	ListDots listDots = new ListDots();
 	ListSides listSides = new ListSides();
-        boolean hasFinish = false;
-        boolean full = false;
-        private int playersConnected = 0;
 	
 	
 	public void setBoard(Board board) {
@@ -34,15 +27,12 @@ public class Game {
 	/*
 	 * Contructor
 	 */
-	public  Game(int row, int column) {
-                board = new Board(4,4);
+	public  Game(Player player1, Player player2) {
+		this.player1 = player1;
+		this.player2 = player2;
 		player1.setOpponent(player2);
 		player2.setOpponent(player1);
 	}
-        
-        public String getListSides() {
-        return new Gson().toJson(this.listSides);
-        }
 
 
 	public Player getPlayer1() {
@@ -91,10 +81,11 @@ public class Game {
 		listSides.printListPolygons(2);
 	}
 
-	public void addSide(int x1, int y1, int x2, int y2, int owner) {
+	public boolean addSide(int x1, int y1, int x2, int y2, int owner) {
 		Dot dot1 = addDot(x1,y1,owner);
 		Dot dot2 = addDot(x2,y2,owner);
 		Side side = null;
+		boolean j = false;
 		//horizontales
 		if(x1 == x2) {
 			if (y1+1 ==y2) {
@@ -121,8 +112,10 @@ public class Game {
 			side = new Side(dot2,dot1);
 		}
 		if(side == null) {
-			return;
-		}
+			return false;
+		}else {
+			j = listSides.isSide(side);
+		}if (j == true) {
 		listSides.addLast(side);
 		listSides.findPoligons(dot2);
 		if (owner == 1) {
@@ -131,28 +124,11 @@ public class Game {
 		}else if (owner == 2) {
 			player2.setPoints(listSides.score);
 			listSides.setScore(0);
+			return true;
 		}
+		}
+		return false;
 	}
-
-    public boolean HasFinished() {
-        return this.hasFinish;
-    }
-
-    public boolean isFull() {
-        return this.full;
-    }
-
-    public void addPlayerConnected() {
-        if(playersConnected <= 1){
-        this.playersConnected += 1;
-        }if(playersConnected == 2){
-            full = true;
-        }
-    }
-
-    public Board getBoard() {
-        return this.board;
-    }
 	
 	
 }
