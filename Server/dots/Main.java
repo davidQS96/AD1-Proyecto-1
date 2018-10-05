@@ -1,5 +1,3 @@
-package dots;
-
 import com.google.gson.*;
 
 public class Main {
@@ -7,9 +5,13 @@ public class Main {
 	
 	public static void main(String [ ]args) {
 		 	//Create Players
-		Game game = new Game(4,4);
+		Game game = new Game(new Player('1'), new Player('2'));
 		game.getPlayer1();
 		game.getPlayer2();
+		 	//Create Board
+		Board board = new Board(4,4);
+		
+		game.board = board;
 		
 			//Add Dot to the matrix
 		
@@ -21,9 +23,10 @@ public class Main {
 		game.listDots.printDots();
 	
 		game.listSides.printListSides();
-                
-                System.out.println(game.getListSides());
 		
 		game.printListPolygons();
+		
+		System.out.println(game.player1.points);
+		System.out.println(game.player2.points);
 	}
 }

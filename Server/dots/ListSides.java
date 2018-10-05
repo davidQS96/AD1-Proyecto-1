@@ -1,8 +1,6 @@
-package dots;
-
 /*
  * Clase que contiene una lista generica con lados encontrados en la malla de juego
- * Ademï¿½s de tener funciones que utilizan los datos de esta clase para otras funciones
+ * Además de tener funciones que utilizan los datos de esta clase para otras funciones
  * como la busqueda de poligonos.
  */
 public class ListSides {
@@ -17,7 +15,12 @@ public class ListSides {
 	private List<Dot> PolygonsPlayer1 = new List<Dot>();
 	private List<Dot> PolygonsPlayer2 = new List<Dot>();
 	int checkLast = 0;
-	int cantLines = 0;	
+	int cantLines = 0;
+	int score = 0;
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 	/*
 	 * Fucnion que agrega un dato al final de la lista
 	 * @param side : es el dato que se desea agregar.
@@ -69,13 +72,11 @@ public class ListSides {
 			//Por la derecha
 			Side side = this.findNext(temp.data,dot);
 			while(this.findNext(side,dot) != null) {
-				cantLines++;
 				side = this.findNext(side,dot);
 			}
 			//Por abajo
 			Side side2 = this.findNext(temp2,dot);
 			while(this.findNext(side2,dot) != null) {
-				cantLines++;
 				side2 = this.findNext(side2,dot);
 			}
 			
@@ -97,6 +98,7 @@ public class ListSides {
 			//verificar si se cierra la figura
 			if (x1 == x2 && y1 == y2) {
 				System.out.println("Poligono encontrado");
+				score = (cantLines*100);
 				sideVerif = temp.data;  //Problema, busca figura dos veces, con esto se soluciona 
 				if (checkLast != 0) {
 					System.out.println(cantLines);
@@ -110,10 +112,12 @@ public class ListSides {
 					}
 					List<Dot> newList = new List<Dot>();
 					listPolygons = newList;
+					System.out.println("Cantidad de lineas: " + cantLines);
 				}
 			}
 			if (temp.next == null) {
 				break;}
+			cantLines = 0;
 			temp = temp.next;
 			i++;
 			}
@@ -153,8 +157,7 @@ public class ListSides {
 				checkLast++;
 			}
 			if (x1 == x2 && y1 == y2) {
-				//temp.data.start.printDot();
-				//side.start.printDot(); Aqui se agrega a una lista
+				cantLines++;
 				return temp.data;
 				}
 			if(temp.next == null) {

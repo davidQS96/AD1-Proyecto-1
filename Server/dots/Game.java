@@ -1,7 +1,7 @@
-package dots;
-
-import com.google.gson.*;
-
+/*
+ * Clase que contiene los datos generales del juego, además es el 
+ * encoargado de llamar el resto gran cantidad de clases.
+ */
 public class Game {
 	/*
 	 * @param player1 : Es el primero en conectarse al server por medio de sockets
@@ -12,35 +12,12 @@ public class Game {
 	 * colocan en la malla
 	 * @param listSides : son todos los lados encontrados, generados por una funcion.
 	 */
-	Player player1 = new Player('1');
-	Player player2 = new Player('2');
-	char currentPlayer = '1';
+	Player player1;
+	Player player2;
+	char currentPlayer;
 	Board board;
-        private int playersConnected = 0;
-        private boolean isFull = false;
-        private boolean hasFinished = false;
-
-    public boolean HasFinished() {
-        return hasFinished;
-    }
-
-    public void setHasFinished(boolean hasFinished) {
-        this.hasFinished = hasFinished;
-    }
-
-    public boolean isIsFull() {
-        return isFull;
-    }
 	ListDots listDots = new ListDots();
 	ListSides listSides = new ListSides();
-        
-        public void addPlayerConnected() {
-        if(playersConnected <= 1){
-        this.playersConnected += 1;
-        }if(playersConnected == 2){
-            isFull = true;
-        }
-    }
 	
 	
 	public void setBoard(Board board) {
@@ -50,8 +27,11 @@ public class Game {
 	/*
 	 * Contructor
 	 */
-	public  Game(int row, int column) {
-            this.board = new Board(row, column);
+	public  Game(Player player1, Player player2) {
+		this.player1 = player1;
+		this.player2 = player2;
+		player1.setOpponent(player2);
+		player2.setOpponent(player1);
 	}
 
 
@@ -130,17 +110,19 @@ public class Game {
 		}else if(x1 < x2 && y1 > y2 && x1+1 == x2 && x2-1 == y2) {
 			side = new Side(dot2,dot1);
 		}
+		if(side == null) {
+			return;
+		}
 		listSides.addLast(side);
 		listSides.findPoligons(dot2);
+		if (owner == 1) {
+			player1.setPoints(listSides.score);
+			listSides.setScore(0);
+		}else if (owner == 2) {
+			player2.setPoints(listSides.score);
+			listSides.setScore(0);
+		}
 	}
-
-    public Board getBoard() {
-        return this.board;
-    }
-
-    public String getListSides() {
-        return new Gson().toJson(this.listSides);
-    }
 	
 	
 }
