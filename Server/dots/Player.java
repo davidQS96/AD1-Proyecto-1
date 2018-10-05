@@ -1,5 +1,3 @@
-package dots;
-
 /*
  * clase player: clase que contiene la informacion de los juagares es partida
  * cada vez que un jugador se conecte se creara un objeto para poder manejar
@@ -12,44 +10,25 @@ public class Player {
 	 * @param number: es el numero que se relaciona con este jugador (1 o 2)
 	 * @param oponent : es el jugador que esta en contra, el otro cliente
 	 */
-	private int points = 0;
-	private final char number;
-	private Player Opponent;
-        private boolean myTurn = false;
-
-    public void setMyTurn(boolean myTurn) {
-        this.myTurn = myTurn;
-    }
-        private boolean beenAssigned = false;
-
-    public boolean hasBeenAssigned() {
-        return beenAssigned;
-    }
-
-    public void setBeenAssigned(boolean beenAssigned) {
-        this.beenAssigned = beenAssigned;
-    }
-        
-        public void setPoints(int points) {
-            this.points = points;
+	int points;
+	public void setPoints(int points2) {
+		this.points = points+points2;
 	}
+	char number;
+	Player Opponent;
 
-        public void setOpponent(Player opponent) {
-            Opponent = opponent;
+public void setOpponent(Player opponent) {
+		Opponent = opponent;
 	}
-        /*
-         * Contructor
-         * @param number: es el numero que se relaciona con este jugador
-         */
-        public Player(char number) {
-            this.number = number;
+/*
+ * Contructor
+ * @param number: es el numero que se relaciona con este jugador
+ */
+public Player(char number) {
+	this.number = number;
 	
 	
 	
-        }
-
-        public String getNumber() {
-            return String.valueOf(this.number);
-        }
+}
 	
 }
