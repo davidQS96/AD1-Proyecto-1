@@ -15,7 +15,12 @@ public class ListSides {
 	private List<Dot> PolygonsPlayer1 = new List<Dot>();
 	private List<Dot> PolygonsPlayer2 = new List<Dot>();
 	int checkLast = 0;
-	int cantLines = 0;	
+	int cantLines = 0;
+	int score = 0;
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 	/*
 	 * Fucnion que agrega un dato al final de la lista
 	 * @param side : es el dato que se desea agregar.
@@ -67,13 +72,11 @@ public class ListSides {
 			//Por la derecha
 			Side side = this.findNext(temp.data,dot);
 			while(this.findNext(side,dot) != null) {
-				cantLines++;
 				side = this.findNext(side,dot);
 			}
 			//Por abajo
 			Side side2 = this.findNext(temp2,dot);
 			while(this.findNext(side2,dot) != null) {
-				cantLines++;
 				side2 = this.findNext(side2,dot);
 			}
 			
@@ -95,6 +98,7 @@ public class ListSides {
 			//verificar si se cierra la figura
 			if (x1 == x2 && y1 == y2) {
 				System.out.println("Poligono encontrado");
+				score = (cantLines*100);
 				sideVerif = temp.data;  //Problema, busca figura dos veces, con esto se soluciona 
 				if (checkLast != 0) {
 					System.out.println(cantLines);
@@ -108,10 +112,12 @@ public class ListSides {
 					}
 					List<Dot> newList = new List<Dot>();
 					listPolygons = newList;
+					System.out.println("Cantidad de lineas: " + cantLines);
 				}
 			}
 			if (temp.next == null) {
 				break;}
+			cantLines = 0;
 			temp = temp.next;
 			i++;
 			}
@@ -151,8 +157,7 @@ public class ListSides {
 				checkLast++;
 			}
 			if (x1 == x2 && y1 == y2) {
-				//temp.data.start.printDot();
-				//side.start.printDot(); Aqui se agrega a una lista
+				cantLines++;
 				return temp.data;
 				}
 			if(temp.next == null) {
@@ -234,6 +239,30 @@ public class ListSides {
 		}else {
 			return;
 		}
+	}
+
+	public boolean isSide(Side side) {
+		int i = 0;
+		int x1 = side.start.x;
+		int y1 = side.start.y;
+		int x2 = side.finish.x;
+		int y2 = side.finish.y;
+		Nodo<Side> temp= listSides.first;
+		while (i < amountSides) {
+			int x3 = temp.data.start.x;
+			int y3 = temp.data.start.y;
+			int x4 = temp.data.finish.x;
+			int y4 = temp.data.finish.y;
+			if (x1 == x3 && y1 == y3 && x2 == x4 && y2 == y4) {
+				return false;}
+			if (temp.next == null) {
+				break;
+			}else {
+				temp = temp.next;
+				i++;
+				continue;}
+			}
+		return true;
 	}
 	
 }

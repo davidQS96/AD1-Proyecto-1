@@ -81,10 +81,11 @@ public class Game {
 		listSides.printListPolygons(2);
 	}
 
-	public void addSide(int x1, int y1, int x2, int y2, int owner) {
+	public boolean addSide(int x1, int y1, int x2, int y2, int owner) {
 		Dot dot1 = addDot(x1,y1,owner);
 		Dot dot2 = addDot(x2,y2,owner);
 		Side side = null;
+		boolean j = false;
 		//horizontales
 		if(x1 == x2) {
 			if (y1+1 ==y2) {
@@ -110,8 +111,23 @@ public class Game {
 		}else if(x1 < x2 && y1 > y2 && x1+1 == x2 && x2-1 == y2) {
 			side = new Side(dot2,dot1);
 		}
+		if(side == null) {
+			return false;
+		}else {
+			j = listSides.isSide(side);
+		}if (j == true) {
 		listSides.addLast(side);
 		listSides.findPoligons(dot2);
+		if (owner == 1) {
+			player1.setPoints(listSides.score);
+			listSides.setScore(0);
+		}else if (owner == 2) {
+			player2.setPoints(listSides.score);
+			listSides.setScore(0);
+			return true;
+		}
+		}
+		return false;
 	}
 	
 	

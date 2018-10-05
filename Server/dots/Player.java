@@ -11,8 +11,8 @@ public class Player {
 	 * @param oponent : es el jugador que esta en contra, el otro cliente
 	 */
 	int points;
-	public void setPoints(int points) {
-		this.points = points;
+	public void setPoints(int points2) {
+		this.points = points+points2;
 	}
 	char number;
 	Player Opponent;

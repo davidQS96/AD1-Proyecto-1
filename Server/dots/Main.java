@@ -25,5 +25,8 @@ public class Main {
 		game.listSides.printListSides();
 		
 		game.printListPolygons();
+		
+		System.out.println(game.player1.points);
+		System.out.println(game.player2.points);
 	}
 }
