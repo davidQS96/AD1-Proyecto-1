@@ -1,4 +1,4 @@
-
+/*
 package networking;
 
 import dots.Game;
@@ -10,7 +10,7 @@ import java.net.Socket;
 /**
  *
  * @author Jon Gs
- */
+ *//*
 public class Server {
     private ServerSocket server;
     private Queue gameQueue;
@@ -71,3 +71,4 @@ public class Server {
     }
     
 }
+*/

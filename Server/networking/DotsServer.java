@@ -9,6 +9,7 @@ import java.io.*;
 public class DotsServer {
     
     Game game;
+    Queue queue = new Queue();
     
     
     public static void main(String[] args) throws IOException{
@@ -46,12 +47,12 @@ public class DotsServer {
                 }
                 System.out.println("Player 1 is: " + game.getPlayer1().hasBeenAssigned());
                 System.out.println("Player 2 is: " + game.getPlayer2().hasBeenAssigned());
-                System.out.println("Game is: " + game.isIsFull());
+                System.out.println("Game is: " + game.isFull());
                 try{
                     System.out.println("Waiting for connection on port: " + port + "\n");
                     Socket socket = serverSocket.accept();
                     ServerThread st = new ServerThread(socket, null);
-                    if (!game.isIsFull()){
+                    if (!game.isFull()){
                         if(!game.getPlayer1().hasBeenAssigned()){
                             st.setAssignedPlayer(game.getPlayer1());
                             game.getPlayer1().setBeenAssigned(true);
@@ -67,7 +68,7 @@ public class DotsServer {
                         }
                         game.addPlayerConnected();
                     } else {
-                        
+                        queue.addClient(socket);
                     }
                 }catch(Exception e){
                     e.printStackTrace();

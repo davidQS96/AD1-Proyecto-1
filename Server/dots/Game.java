@@ -1,5 +1,9 @@
+package dots;
+
+import com.google.gson.Gson;
+
 /*
- * Clase que contiene los datos generales del juego, además es el 
+ * Clase que contiene los datos generales del juego, ademï¿½s es el 
  * encoargado de llamar el resto gran cantidad de clases.
  */
 public class Game {
@@ -12,12 +16,15 @@ public class Game {
 	 * colocan en la malla
 	 * @param listSides : son todos los lados encontrados, generados por una funcion.
 	 */
-	Player player1;
-	Player player2;
+	Player player1 = new Player('1');
+	Player player2 = new Player('2');
 	char currentPlayer;
 	Board board;
 	ListDots listDots = new ListDots();
 	ListSides listSides = new ListSides();
+        boolean hasFinish = false;
+        boolean full = false;
+        private int playersConnected = 0;
 	
 	
 	public void setBoard(Board board) {
@@ -27,12 +34,15 @@ public class Game {
 	/*
 	 * Contructor
 	 */
-	public  Game(Player player1, Player player2) {
-		this.player1 = player1;
-		this.player2 = player2;
+	public  Game(int row, int column) {
+                board = new Board(4,4);
 		player1.setOpponent(player2);
 		player2.setOpponent(player1);
 	}
+        
+        public String getListSides() {
+        return new Gson().toJson(this.listSides);
+        }
 
 
 	public Player getPlayer1() {
@@ -123,6 +133,26 @@ public class Game {
 			listSides.setScore(0);
 		}
 	}
+
+    public boolean HasFinished() {
+        return this.hasFinish;
+    }
+
+    public boolean isFull() {
+        return this.full;
+    }
+
+    public void addPlayerConnected() {
+        if(playersConnected <= 1){
+        this.playersConnected += 1;
+        }if(playersConnected == 2){
+            full = true;
+        }
+    }
+
+    public Board getBoard() {
+        return this.board;
+    }
 	
 	
 }

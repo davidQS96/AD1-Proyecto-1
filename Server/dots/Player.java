@@ -1,3 +1,5 @@
+package dots;
+
 /*
  * clase player: clase que contiene la informacion de los juagares es partida
  * cada vez que un jugador se conecte se creara un objeto para poder manejar
@@ -15,6 +17,7 @@ public class Player {
 		this.points = points+points2;
 	}
 	char number;
+        boolean beenAssigned = false;
 	Player Opponent;
 
 public void setOpponent(Player opponent) {
@@ -30,5 +33,17 @@ public Player(char number) {
 	
 	
 }
+
+    public boolean hasBeenAssigned() {
+        return this.beenAssigned;
+    }
+
+    public void setBeenAssigned(boolean b) {
+        this.beenAssigned = true;
+    }
+
+    public char getNumber() {
+        return this.number;
+    }
 	
 }

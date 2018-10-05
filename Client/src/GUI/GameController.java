@@ -12,6 +12,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.Arrays;
+import java.util.Timer;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -24,7 +25,7 @@ import javafx.scene.shape.Polygon;
 
 public class GameController {
     //Networking variables
-    private String host = "127.0.0.1";
+    private String host = "192.168.31.202";
     private int port = 65356;
     private Socket socket;
     private InputStream input;
@@ -49,6 +50,13 @@ public class GameController {
 	private double[] newPos = new double[2]; //Coordenada siguiente de una linea (punto final)
 	private int[] prevIndex = new int[2]; //�ndice de matriz anterior de una linea (punto inicial)
 	private int[] newIndex = new int[2]; //�ndice de matriz siguiente de una linea (punto final)
+        
+    //Timer
+       private Tempo timerTask = new Tempo();
+
+    public void setTimer(Tempo timerTask) {
+        this.timerTask = timerTask;
+    }
 	    
     public void setNetworkStuff(){
         
@@ -57,6 +65,8 @@ public class GameController {
 	public void initialize() throws IOException { //Metodo que se llama cuando se abre la ventana de juego
             socket = new Socket(host, port);
             String command = askServer("UPDATE");
+            Timer timer = new Timer(true);
+            timer.scheduleAtFixedRate(timerTask, 0, 1000);
             System.out.println(player);
             
             gridAreaSize[0] = gameAreaSize[0] - 2 * padding[0];
@@ -195,7 +205,7 @@ public class GameController {
 			gameArea.getChildren().add(connectionLine);
 		}
 	
-		//M�todo que dibuja un pol�gono completado con color seg�n el que lo haya completado
+		//M�todo que dibuja un pol�gono completado con color seg�n el que lo haya completado hi
 		public void drawPolygon(int[][] vertexArray, boolean isPlayer) throws Exception {
 			Double[] polygonInput = new Double[2 * vertexArray.length];
 			for(int i = 0; i < vertexArray.length; i++ ) {
@@ -310,6 +320,10 @@ public class GameController {
             
             return null;
         
+    }
+    
+    public void requestUPDATE() throws IOException{
+        String updatedGrid = askServer("UPDATE");
     }
 	
 	

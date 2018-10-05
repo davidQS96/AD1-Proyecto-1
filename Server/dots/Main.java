@@ -1,3 +1,5 @@
+package dots;
+
 import com.google.gson.*;
 
 public class Main {
@@ -5,7 +7,7 @@ public class Main {
 	
 	public static void main(String [ ]args) {
 		 	//Create Players
-		Game game = new Game(new Player('1'), new Player('2'));
+		Game game = new Game(4, 4);
 		game.getPlayer1();
 		game.getPlayer2();
 		 	//Create Board
@@ -16,6 +18,7 @@ public class Main {
 			//Add Dot to the matrix
 		
 		game.addSide(1,1,2,1,1);
+                game.addSide(1,1,2,1,1);
 		game.addSide(1,1,1,2,1);
 		game.addSide(2,1,2,2,1);
 		game.addSide(1,2,2,2,2);
