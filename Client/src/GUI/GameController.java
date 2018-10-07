@@ -124,7 +124,7 @@ public class GameController {
 
 	}
 
-	//Método que dibuja una línea del jugador, siempre que esta sea válida
+	//Metodo que dibuja una linea del jugador, siempre que esta sea valida
 	@FXML
 	private void beginLine(MouseEvent event) throws Exception{
 		double posX = event.getX();
@@ -186,7 +186,7 @@ public class GameController {
 	//		if()
 	//	}
 
-	//Mï¿½todo que retorna las coordenadas de un punto dentro del ï¿½rea de juego basï¿½ndose en sus ï¿½ndices de matriz
+	//Metodo que retorna las coordenadas de un punto dentro del area de juego basandose en sus Indices de matriz
 	private double[] getGameAreaCoordinates(int[] dotIndex) {
 		if (dotIndex.length == 2) {
 			int xIndex = dotIndex[0];
@@ -203,7 +203,7 @@ public class GameController {
 
 	}
 
-	//Mï¿½todo que retorna los ï¿½ndices de matriz de un punto basï¿½ndose en sus coordenadas dentro del ï¿½rea de juego
+	//Metodo que retorna los Indices de matriz de un punto basandose en sus coordenadas dentro del area de juego
 	public int[] getDotMatrixIndex(double[] dotGameAreaCoordinates) {
 		if (dotGameAreaCoordinates.length == 2) {
 			double xCoord = dotGameAreaCoordinates[0];
@@ -220,7 +220,7 @@ public class GameController {
 
 	}
 
-	//Mï¿½todo que dibuja una lï¿½nea con color segï¿½n el jugador
+	//Metodo que dibuja una linea con color segun el jugador
 	public void drawLine(int[] initEndpoint, int[] finalEndpoint, boolean isPlayer) {
 		Line connectionLine = new Line(initEndpoint[0], initEndpoint[1], finalEndpoint[0], finalEndpoint[1]);
 		connectionLine.setStrokeWidth(1);
@@ -237,7 +237,7 @@ public class GameController {
 		gameArea.getChildren().add(connectionLine);
 	}
 
-	//Mï¿½todo que dibuja un polï¿½gono completado con color segï¿½n el que lo haya completado hi
+	//Metodo que dibuja un poligono completado con color segun el que lo haya completado
 	public void drawPolygon(int[][] vertexArray, boolean isPlayer) throws Exception {
 		Double[] polygonInput = new Double[2 * vertexArray.length];
 		for(int i = 0; i < vertexArray.length; i++ ) {
@@ -263,9 +263,9 @@ public class GameController {
 
 	}
 
-	//Mï¿½todo que encuentra las coordenadas reales del punto mï¿½s cercano al mouse basï¿½ndose en la posiciï¿½n del mouse
+	//Metodo que encuentra las coordenadas reales del punto mas cercano al mouse basandose en la posicion del mouse
 	private double realDotSearch(int numDots, double mousePos, int axisNum) {
-		//Se asegura que ninguna medida en ï¿½rea de juego resulte mayor a esta distancia mï¿½nima.
+		//Se asegura que ninguna medida en area de juego resulte mayor a esta distancia minima.
 		double minDist = gameAreaSize[axisNum] + allowedArea[axisNum] / 2;
 
 		for(int dot_i = 0; dot_i <= numDots; dot_i++ ) {			
@@ -273,7 +273,7 @@ public class GameController {
 			double mouseDist = Math.abs(posDot - mousePos);
 
 			if (dot_i != numDots){
-				//Se revisa un ï¿½rea rectangular alrededor del punto
+				//Se revisa un area rectangular alrededor del punto
 				if(mouseDist < minDist) { 
 					minDist = mouseDist;				
 
