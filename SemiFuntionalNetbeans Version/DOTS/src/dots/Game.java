@@ -21,8 +21,6 @@ public class Game {
 	Player player2 = new Player('2');
 	char currentPlayer = '1';
 	Board board;
-        ListDots listDots = new ListDots();
-	ListSides listSides = new ListSides();
         private int playersConnected = 0;
         private boolean isFull = false;
         private boolean hasFinished = false;
@@ -38,7 +36,8 @@ public class Game {
     public boolean isIsFull() {
         return isFull;
     }
-	
+	ListDots listDots = new ListDots();
+	ListSides listSides = new ListSides();
         
         public void addPlayerConnected() {
         if(playersConnected <= 1){
@@ -57,7 +56,7 @@ public class Game {
 	 * Contructor
 	 */
 	public  Game(int row, int column) {
-            this.board = new Board(4, 4);
+            this.board = new Board(row, column);
 	}
 
 
@@ -107,11 +106,10 @@ public class Game {
 		listSides.printListPolygons(2);
 	}
 
-	public String addSide(int x1, int y1, int x2, int y2, int owner) {
+	public void addSide(int x1, int y1, int x2, int y2, int owner) {
 		Dot dot1 = addDot(x1,y1,owner);
 		Dot dot2 = addDot(x2,y2,owner);
 		Side side = null;
-                boolean j = false;
 		//horizontales
 		if(x1 == x2) {
 			if (y1+1 ==y2) {
@@ -137,23 +135,8 @@ public class Game {
 		}else if(x1 < x2 && y1 > y2 && x1+1 == x2 && x2-1 == y2) {
 			side = new Side(dot2,dot1);
 		}
-                if(side == null){
-                    return "FALSE";
-                }else{
-                    j = listSides.isSide(side);
-                }if(j == true){
 		listSides.addLast(side);
 		listSides.findPoligons(dot2);
-                if (owner == 1) {
-                   player1.setPoints(listSides.score);
-			listSides.setScore(0);
-		}else if (owner == 2) {
-			player2.setPoints(listSides.score);
-			listSides.setScore(0);
-			return "TRUE";
-		}
-                }
-                return "FALSE";  
 	}
 
     public Board getBoard() {

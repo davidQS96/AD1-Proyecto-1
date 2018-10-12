@@ -16,10 +16,6 @@ public class Player {
 	private final char number;
 	private Player Opponent;
         private boolean myTurn = false;
-        
-     public void setPoints(int points2) {
-		this.points = points+points2;
-	}
 
     public void setMyTurn(boolean myTurn) {
         this.myTurn = myTurn;
@@ -34,6 +30,9 @@ public class Player {
         this.beenAssigned = beenAssigned;
     }
         
+        public void setPoints(int points) {
+            this.points = points;
+	}
 
         public void setOpponent(Player opponent) {
             Opponent = opponent;
