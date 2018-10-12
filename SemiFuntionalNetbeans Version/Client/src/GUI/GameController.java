@@ -1,6 +1,8 @@
 package GUI;
 
 import client.DotsClient;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -76,12 +78,20 @@ public class GameController {
 	
 	//Atributos de condicion
 	private boolean isDrawingLine = false; //Condici�n de estar dibujando l�nea
+
+    public boolean isIsDrawingLine() {
+        return isDrawingLine;
+    }
 	
 	//Atributos de tiempo
 	int timeLeft = 0; //Tiempo total en segundos
 	
 	//Timer
-	private Tempo timerTask = new Tempo();
+	private Tempo timerTask = new Tempo(this, 0);
+
+    public Tempo getTimerTask() {
+        return timerTask;
+    }
 
 //Metodos
 
@@ -160,6 +170,7 @@ public class GameController {
 		
 		System.out.println("X: " + posX + " Y: " + posY);
 		
+               
 		//Estas variables permiten que haya una lectura de numero continua en la area alrededor del punto.
 		double displacementX = (posX - padding[0] + distDots[0] / 2) % distDots[0];
 		double displacementY = (posY - padding[1] + distDots[1] / 2) % distDots[1];
@@ -206,7 +217,7 @@ public class GameController {
 		
 		timeLeft -= 1;
 		updateTime(timeLeft);
-		
+                
     }
 
 	//M�todo que retorna las coordenadas de un punto dentro del �rea de juego bas�ndose en sus �ndices de matriz
@@ -451,10 +462,58 @@ public class GameController {
 			player = command.charAt(7);
 			colNum = Integer.parseInt(String.valueOf(command.charAt(9)));
 			rowNum = Integer.parseInt(String.valueOf(command.charAt(11)));
-			//socket.close();
+                        JsonObject jobj1 = new Gson().fromJson(command.substring(13), JsonObject.class);
+                        if(jobj1.get("listSides").getAsJsonObject().has("first")){
+                        JsonObject jobj = jobj1.get("listSides").getAsJsonObject().get("first").getAsJsonObject();
+                        boolean pastFirst = false;
+                String result = "";
+                while(jobj.get("next") != null){
+                if(!pastFirst){
+                    //jobj = jobj.get("first").getAsJsonObject();
+                    JsonObject first = jobj.get("data").getAsJsonObject();
+                    Integer x1 = first.get("start").getAsJsonObject().get("x").getAsInt();
+                    Integer y1 = first.get("start").getAsJsonObject().get("y").getAsInt();
+                    int[] start = {x1,y1};
+                    Integer x2 = first.get("finish").getAsJsonObject().get("x").getAsInt();
+                    Integer y2 = first.get("finish").getAsJsonObject().get("y").getAsInt();
+                    int[] finish = {x2,y2};
+                    Integer owner = first.get("start").getAsJsonObject().get("owner").getAsInt();
+                    boolean owner_V;
+                    if(owner.equals(1)){
+                        owner_V = true;
+                    }else{
+                        owner_V = false;
+                    }
+                        
+                    drawLine(start, finish, owner_V);
+                    jobj = jobj.get("next").getAsJsonObject();
+                }else{
+                        JsonObject data = jobj.get("data").getAsJsonObject();
+                        Integer x1 = data.get("start").getAsJsonObject().get("x").getAsInt();
+                        Integer y1 = data.get("start").getAsJsonObject().get("y").getAsInt();
+                        int[] start = {x1,y1};
+                        Integer x2 = data.get("finish").getAsJsonObject().get("x").getAsInt();
+                        Integer y2 = data.get("finish").getAsJsonObject().get("y").getAsInt();
+                        int[] finish = {x2,y2};
+                        Integer owner = data.get("start").getAsJsonObject().get("owner").getAsInt();
+                        boolean owner_V;
+                        if(owner.equals(1)){
+                        owner_V = true;
+                        }else{
+                        owner_V = false;
+                        }
+                        drawLine(start, finish, owner_V);
+                        
+                        jobj = jobj.get("next").getAsJsonObject();
+                    }
 			System.out.println(command);
 			return command;
-		}else if(command.startsWith("DRAW")){
+		}
+                }else{
+                            return null;
+                        }
+                }
+                else if(command.startsWith("DRAW")){
 			command = command.substring(5);
 			if(!command.equals("FALSE")){
 				//socket.close();
@@ -483,7 +542,8 @@ public class GameController {
 	}
 
 	public void requestUPDATE() throws IOException{
-		String updatedGrid = askServer("UPDATE");
+                System.out.println("Voy a pedir update");
+		askServer("UPDATE");
 	}
 	
 }
