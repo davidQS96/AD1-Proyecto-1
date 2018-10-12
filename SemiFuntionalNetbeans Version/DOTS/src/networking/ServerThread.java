@@ -56,7 +56,7 @@ public class ServerThread extends Thread {
                 if(text.startsWith("UPDATE")){
                     String command = "UPDATE";
                     String columnRow = game.getBoard().getColumnRow();
-                    String sides = new Gson().toJson(game.getListSides());
+                    String sides = game.getListSides();
                     System.out.println("Server sending: " + command + " to " + clientIP);
                     System.out.println(columnRow);
                     System.out.println(sides);
@@ -95,7 +95,7 @@ public class ServerThread extends Thread {
             ex.printStackTrace();
         }
     }
-
+//hi
     private String validateLine(String substring) {
         int ID = Integer.parseInt(String.valueOf(substring.charAt(0)));
         int x1 = Integer.parseInt(String.valueOf(substring.charAt(2)));

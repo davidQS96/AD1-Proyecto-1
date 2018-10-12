@@ -29,7 +29,7 @@ public class ListSides {
 	 
 	/*
 	 * Funcion que Imprime en la consola los lados encontrados en la malla
-	 */
+	 */ //hi
 	public void printListSides() {
 		Nodo<Side> temp = listSides.first;
 		while (temp.next != null) {
@@ -237,5 +237,25 @@ public class ListSides {
 			return;
 		}
 	}
+        
+        /*public String listToString(){
+            Nodo<Side> temp = listSides.first;
+            String listString = "";
+            while (temp.next != null) {
+                String x = String.valueOf(temp.data.start.x);
+                String y = String.valueOf(temp.data.start.y);
+                String x2 = String.valueOf(temp.data.finish.x);
+                String y2 = String.valueOf(temp.data.finish.y);
+                listString += "x : " x + ',' +; 
+                //System.out.println("Side= ["+x+","+y+"] and ["+x2+","+y2+"],");
+                
+                temp = temp.next;
+		}
+            int x = temp.data.start.x;
+            int y = temp.data.start.y;
+            int x2 = temp.data.finish.x;
+            int y2 = temp.data.finish.y;
+            //System.out.println("Side= ["+x+","+y+"] and ["+x2+","+y2+"].");
+        }*/
 	
 }
