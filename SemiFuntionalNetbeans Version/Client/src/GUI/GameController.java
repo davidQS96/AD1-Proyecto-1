@@ -104,12 +104,12 @@ public class GameController {
 	}
 
 	//Metodo que se llama cuando se abre la ventana de juego
-	public void initialize() throws IOException {
+	public void initialize() throws IOException, Exception {
             
                 socket = new Socket(host, port);
 		String command = askServer("UPDATE");
 		Timer timer = new Timer(true);
-		timer.scheduleAtFixedRate(timerTask, 0, 1000);
+		timer.scheduleAtFixedRate(timerTask, 0, 2*1000);
                 
 		tempButton.setOpacity(0.05);
 		System.out.println(portStr);
@@ -276,6 +276,7 @@ public class GameController {
 	
 	//M�todo que dibuja un pol�gono completado con color seg�n el que lo haya completado
 	public void drawPolygon(int[][] vertexArray, boolean isPlayer) throws Exception {
+                System.out.println("Voy a dibujar una figura");
 		Double[] polygonInput = new Double[2 * vertexArray.length];
 		for(int i = 0; i < vertexArray.length; i++ ) {
 			double[] vertexCoordinates = getGameAreaCoordinates(vertexArray[i]);			
@@ -432,31 +433,26 @@ public class GameController {
 		winnerScene.show();
 	}
 	
-	private String askServer(String text) throws IOException {
+	private String askServer(String text) throws IOException, Exception {
 		//try(Socket socket = new Socket(host, port)){
-		System.out.println(socket.isClosed());
-		System.out.println("Logro asignar el socket");
-		System.out.println("Entro a la funcion");
 
 		System.out.println(socket.isClosed());
 
 		OutputStream output = socket.getOutputStream();
 		PrintWriter writer = new PrintWriter(output, true);
 
-		System.out.println("Creo el output");
-
 		String command;
 
 		writer.println(text);
 		writer.flush();
-
-		System.out.println("Envio el mensaje");
 
 
 		InputStream input = socket.getInputStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
 		command = reader.readLine();
+                
+                System.out.println("Mensaje: " + command);
 
 		if(command.startsWith("UPDATE")){
 			player = command.charAt(7);
@@ -467,9 +463,10 @@ public class GameController {
                         JsonObject jobj = jobj1.get("listSides").getAsJsonObject().get("first").getAsJsonObject();
                         boolean pastFirst = false;
                 String result = "";
-                while(jobj.get("next") != null){
+                while(jobj.has("next")){
                 if(!pastFirst){
                     //jobj = jobj.get("first").getAsJsonObject();
+                    System.out.println("A punto de dibujar linea");
                     JsonObject first = jobj.get("data").getAsJsonObject();
                     Integer x1 = first.get("start").getAsJsonObject().get("x").getAsInt();
                     Integer y1 = first.get("start").getAsJsonObject().get("y").getAsInt();
@@ -506,9 +503,36 @@ public class GameController {
                         
                         jobj = jobj.get("next").getAsJsonObject();
                     }
-			System.out.println(command);
-			return command;
 		}
+                JsonObject data = jobj.get("data").getAsJsonObject();
+                        Integer x1 = data.get("start").getAsJsonObject().get("x").getAsInt();
+                        Integer y1 = data.get("start").getAsJsonObject().get("y").getAsInt();
+                        int[] start = {x1,y1};
+                        Integer x2 = data.get("finish").getAsJsonObject().get("x").getAsInt();
+                        Integer y2 = data.get("finish").getAsJsonObject().get("y").getAsInt();
+                        int[] finish = {x2,y2};
+                        Integer owner = data.get("start").getAsJsonObject().get("owner").getAsInt();
+                        boolean owner_V;
+                        if(owner.equals(1)){
+                        owner_V = true;
+                        }else{
+                        owner_V = false;
+                        }
+                        drawLine(start, finish, owner_V);
+                if(jobj1.has("poliPlayer1")){
+                    System.out.println("Llego a marcador");
+                    String polys = jobj1.get("poliPlayer1").getAsString();
+                    System.out.println(polys);
+                    int[][] polygon = new int[(polys.length()+1)/4][2];
+                    int len = (polys.length()+1)/4;
+                    int j = 0;
+                    for(int i = 0; i < len; i++){
+                        polygon[i][0] = Integer.parseInt(String.valueOf(polys.charAt(j)));
+                        polygon[i][1] = Integer.parseInt(String.valueOf(polys.charAt(j+2)));
+                        j+=4;
+                    }
+                    drawPolygon(polygon, true);
+                }
                 }else{
                             return null;
                         }
@@ -541,7 +565,7 @@ public class GameController {
 
 	}
 
-	public void requestUPDATE() throws IOException{
+	public void requestUPDATE() throws IOException, Exception{
                 System.out.println("Voy a pedir update");
 		askServer("UPDATE");
 	}
