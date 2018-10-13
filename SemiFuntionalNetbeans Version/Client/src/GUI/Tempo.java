@@ -38,6 +38,8 @@ public class Tempo extends TimerTask {
                 gameController.requestUPDATE();
             } catch (IOException ex) {
                 ex.printStackTrace();
+            } catch (Exception ex) {
+                Logger.getLogger(Tempo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         seconds ++;

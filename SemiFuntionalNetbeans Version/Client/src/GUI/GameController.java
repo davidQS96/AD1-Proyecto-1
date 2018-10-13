@@ -522,16 +522,21 @@ public class GameController {
                 if(jobj1.has("poliPlayer1")){
                     System.out.println("Llego a marcador");
                     String polys = jobj1.get("poliPlayer1").getAsString();
-                    System.out.println(polys);
-                    int[][] polygon = new int[(polys.length()+1)/4][2];
-                    int len = (polys.length()+1)/4;
+                    //System.out.println(polys);
+                    String[] parts = polys.split("\\.");
+                    for(String n : parts){
+                        System.out.println(n);
+                    int len = (n.length()+1)/4;
+                    int[][] polygon = new int[len][2];
                     int j = 0;
                     for(int i = 0; i < len; i++){
-                        polygon[i][0] = Integer.parseInt(String.valueOf(polys.charAt(j)));
-                        polygon[i][1] = Integer.parseInt(String.valueOf(polys.charAt(j+2)));
+                        polygon[i][0] = Integer.parseInt(String.valueOf(n.charAt(j)));
+                        polygon[i][1] = Integer.parseInt(String.valueOf(n.charAt(j+2)));
                         j+=4;
                     }
-                    drawPolygon(polygon, true);
+                    int[][] a = {{0,0},{1,0},{1,1},{0,1}};
+                    drawPolygon(a, true);
+                    }
                 }
                 }else{
                             return null;
