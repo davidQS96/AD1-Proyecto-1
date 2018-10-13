@@ -109,7 +109,7 @@ public class GameController {
                 socket = new Socket(host, port);
 		String command = askServer("UPDATE");
 		Timer timer = new Timer(true);
-		timer.scheduleAtFixedRate(timerTask, 0, 2*1000);
+		timer.scheduleAtFixedRate(timerTask, 0, 1*1000);
                 
 		tempButton.setOpacity(0.05);
 		System.out.println(portStr);
@@ -341,7 +341,7 @@ public class GameController {
 	//Metodo para actualizar tiempo faltante del juego, antes que acabe.                 
 	//totalTimeLeft in seconds
 	//Tiene formato hhhhhhhhh:mm:ss
-	private void updateTime(int totalTimeLeft) {
+	public void updateTime(int totalTimeLeft) {
 		String timeStr;
 		
 		if (totalTimeLeft > 0) {

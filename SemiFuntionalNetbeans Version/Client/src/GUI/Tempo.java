@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 
 public class Tempo extends TimerTask {
+    int totalSeconds = 0;
     int seconds = 0;
 
     public int getSeconds() {
@@ -42,8 +43,9 @@ public class Tempo extends TimerTask {
                 Logger.getLogger(Tempo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        seconds ++;
+        totalSeconds ++;
         seconds = seconds % 2;
+        gameController.updateTime(totalSeconds);
         System.out.println(seconds);
     }
             }
