@@ -145,11 +145,15 @@ public class ListSides {
 	}
         
         private void addDotsListPoligons(int jugador){
+            int verif = 0; 
             if (jugador == 1){
                 Nodo<Dot> temp = general.first;
                 while(temp.next != null){
                     if (poliPlayer1 == null){
                         poliPlayer1 = temp.data.x + "," + temp.data.y;
+                    }else if(verif == 0){
+                        verif++;
+                        poliPlayer1 = poliPlayer1 + temp.data.x + "," + temp.data.y;
                     }else{
                        poliPlayer1 = poliPlayer1 + "," + temp.data.x + "," + temp.data.y; 
                     }
@@ -157,6 +161,9 @@ public class ListSides {
                 }
                 if (poliPlayer1 == null){
                         poliPlayer1 = temp.data.x + "," + temp.data.y;
+                        }else if(verif == 0){
+                        verif++;
+                        poliPlayer1 = poliPlayer1 + temp.data.x + "," + temp.data.y;
                     }else{
                        poliPlayer1 = poliPlayer1 + "," + temp.data.x + "," + temp.data.y + "\\."; 
                     }
@@ -165,6 +172,9 @@ public class ListSides {
                 while(temp.next != null){
                     if (poliPlayer2 == null){
                         poliPlayer2 = temp.data.x + "," + temp.data.y;
+                    }else if (verif == 0){
+                        verif++;
+                        poliPlayer2 = poliPlayer2 + temp.data.x + "," + temp.data.y;
                     }else{
                        poliPlayer2 = poliPlayer2 + "," + temp.data.x + "," + temp.data.y; 
                     }
@@ -172,6 +182,10 @@ public class ListSides {
             }
                 if (poliPlayer2 == null){
                         poliPlayer2 = temp.data.x + "," + temp.data.y;
+                    }else if (verif == 0){
+                        verif++;
+                        poliPlayer2 = poliPlayer2 + temp.data.x + "," + temp.data.y;
+                        
                     }else{
                        poliPlayer2 = poliPlayer2 + "," + temp.data.x + "," + temp.data.y + "\\."; 
                     }
