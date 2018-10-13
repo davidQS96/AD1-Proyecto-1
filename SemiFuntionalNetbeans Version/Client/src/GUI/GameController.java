@@ -40,7 +40,7 @@ import javafx.stage.Stage;
 public class GameController {
 
 //Networking variables
-	private String host = "127.0.0.1";
+	private String host = "172.19.51.23";
 	private int port = 65356;
 	private Socket socket;
 	private InputStream input;
@@ -155,11 +155,11 @@ public class GameController {
 	}
 	
 	public void setIP(String[] ipStr) {
-		this.host = ipStr[0] + '.' + ipStr[1] + '.' + ipStr[2] + '.' + ipStr[3];
+		this.ipStr = ipStr;
 	}
 	
 	public void setPort(String portStr) {
-		this.port = Integer.parseInt(portStr);
+		this.portStr = portStr;
 	}
 	
 	//M�todo que dibuja una l�nea del jugador, siempre que esta sea v�lida
