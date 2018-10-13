@@ -155,11 +155,11 @@ public class GameController {
 	}
 	
 	public void setIP(String[] ipStr) {
-		this.ipStr = ipStr;
+		this.host = ipStr[0] + '.' + ipStr[1] + '.' + ipStr[2] + '.' + ipStr[3];
 	}
 	
 	public void setPort(String portStr) {
-		this.portStr = portStr;
+		this.port = Integer.parseInt(portStr);
 	}
 	
 	//M�todo que dibuja una l�nea del jugador, siempre que esta sea v�lida

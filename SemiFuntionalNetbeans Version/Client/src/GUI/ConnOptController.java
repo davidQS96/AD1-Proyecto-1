@@ -138,7 +138,7 @@ public class ConnOptController {
 		
 	}
 	
-	//Metodo para determinar si un string contiene un numero entero positivo ó 0
+	//Metodo para determinar si un string contiene un numero entero positivo ï¿½ 0
 	private boolean strIsInteger(String numStr) {
 		if(numStr.equals("")) {
 			return false;
@@ -181,7 +181,7 @@ public class ConnOptController {
 	
 	private void loadMainMenuScreen() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/application/MainMenuScreen.fxml"));
+		loader.setLocation(getClass().getResource("/GUI/MainMenuScreen.fxml"));
 		try {
 			loader.load();
 		}catch(IOException ex) {
