@@ -16,9 +16,17 @@ public class ListSides {
 	int amountSides = 0;
 	private List<Dot> PolygonsPlayer1 = new List<Dot>();
 	private List<Dot> PolygonsPlayer2 = new List<Dot>();
+        
+        String poliPlayer1 = null;
+        String poliPlayer2 = null;
+        
+        
 	int checkLast = 0;
 	int cantLines = 0;
         int score = 0;
+       private List<Dot> general = new List<Dot>();
+        
+        
         public void setScore(int score) {
 		this.score = score;
 	}
@@ -56,6 +64,7 @@ public class ListSides {
 	 * Funcion que utiliza la lista Sides para buscar poligonos
 	 */
 	public void findPoligons(Dot dot) {
+                general = new List<Dot>(); 
 		List<Dot> listPolygons = new List<Dot>();
 		int i = 0;
 		Nodo<Side> temp = listSides.first;
@@ -64,21 +73,27 @@ public class ListSides {
 			Side temp2 = this.findEqualStart(temp.data,dot);
 			if (temp2 == null || sideVerif == temp2 || sideVerif == temp.data) {
 				if (temp.next == null) {
-					break;
+                                    break;
 				}else {
-					temp = temp.next;
-					i++;
+                                    general = new List<Dot>(); 
+                                    temp = temp.next;
+                                    i++;
 				}continue;
 				}
+                        general.addLast(temp.data.start);                       //AGREGAR DOTS A LISTA DE POLIGONOS
+                        general.addLast(temp.data.finish);                      //AGREGAR DOTS A LISTA DE POLIGONOS
+                        general.addLast(temp2.finish);                          //AGREGAR DOTS A LISTA DE POLIGONOS
 			//Por la derecha
 			Side side = this.findNext(temp.data,dot);
 			while(this.findNext(side,dot) != null) {
+                                general.addLast(side.finish);                   //AGREGAR DOTS A LISTA DE POLIGONOS
 				cantLines++;
 				side = this.findNext(side,dot);
 			}
 			//Por abajo
 			Side side2 = this.findNext(temp2,dot);
 			while(this.findNext(side2,dot) != null) {
+                                general.addLast(side2.finish);                  //AGREGAR DOTS A LISTA DE POLIGONOS
 				cantLines++;
 				side2 = this.findNext(side2,dot);
 			}
@@ -90,6 +105,7 @@ public class ListSides {
 				i++;
 				continue;
 				}
+                        general.addLast(side2.finish);                          //AGREGAR DOTS A LISTA DE POLIGONOS
 			
 			// Side 1
 			int x1 = side.finish.x; 
@@ -109,8 +125,10 @@ public class ListSides {
 					listPolygons.addLast(temp.data.start);
 					listPolygons.addLast(side.finish);
 					if (dot.owner == 1) {
+                                                addDotsListPoligons(1);
 						PolygonsPlayer1 = listPolygons;
 					}if (dot.owner == 2){
+                                                addDotsListPoligons(2);
 						PolygonsPlayer2 = listPolygons;
 					}
 					List<Dot> newList = new List<Dot>();
@@ -119,11 +137,46 @@ public class ListSides {
 			}
 			if (temp.next == null) {
 				break;}
+                        general = new List<Dot>(); 
 			temp = temp.next;
 			i++;
 			}
 		
 	}
+        
+        private void addDotsListPoligons(int jugador){
+            if (jugador == 1){
+                Nodo<Dot> temp = general.first;
+                while(temp.next != null){
+                    if (poliPlayer1 == null){
+                        poliPlayer1 = temp.data.x + "," + temp.data.y;
+                    }else{
+                       poliPlayer1 = poliPlayer1 + "," + temp.data.x + "," + temp.data.y; 
+                    }
+                    temp = temp.next;   
+                }
+                if (poliPlayer1 == null){
+                        poliPlayer1 = temp.data.x + "," + temp.data.y;
+                    }else{
+                       poliPlayer1 = poliPlayer1 + "," + temp.data.x + "," + temp.data.y; 
+                    }
+            }else if (jugador == 2){
+                Nodo<Dot> temp = general.first;
+                while(temp.next != null){
+                    if (poliPlayer2 == null){
+                        poliPlayer2 = temp.data.x + "," + temp.data.y;
+                    }else{
+                       poliPlayer2 = poliPlayer2 + "," + temp.data.x + "," + temp.data.y; 
+                    }
+                    temp = temp.next;
+            }
+                if (poliPlayer2 == null){
+                        poliPlayer2 = temp.data.x + "," + temp.data.y;
+                    }else{
+                       poliPlayer2 = poliPlayer2 + "," + temp.data.x + "," + temp.data.y; 
+                    }
+        }
+        }
 	
 	/*
 	 *  Funcion que resibe un side, busca en la lista de Sides uno que tenga como start el un punto igual

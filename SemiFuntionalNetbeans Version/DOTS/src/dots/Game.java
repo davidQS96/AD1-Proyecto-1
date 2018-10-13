@@ -106,7 +106,7 @@ public class Game {
 		listSides.printListPolygons(2);
 	}
 
-	public String addSide(int x1, int y1, int x2, int y2, int owner) {
+	public boolean addSide(int x1, int y1, int x2, int y2, int owner) {
 		Dot dot1 = addDot(x1,y1,owner);
 		Dot dot2 = addDot(x2,y2,owner);
 		Side side = null;
@@ -137,7 +137,7 @@ public class Game {
 			side = new Side(dot2,dot1);
 		}
 		if(side == null) {
-			return "FALSE";
+			return false;
 		}else {
 			j = listSides.isSide(side);
 		}if (j == true) {
@@ -148,11 +148,11 @@ public class Game {
 			listSides.setScore(0);
 		}else if (owner == 2) {
 			player2.setPoints(listSides.score);
-			listSides.setScore(0);
-			return "TRUE";
+			listSides.setScore(0);	
 		}
+                return true;
 		}
-		return "FALSE";
+		return false;
 	}
 
     public Board getBoard() {

@@ -20,6 +20,8 @@ public class Main {
                 game.addSide(1,2,2,2,2);
 		game.board.printBoard();
 		game.listDots.printDots();
+                
+                System.out.println("String poligono: "+game.listSides.poliPlayer2);
 	
 		game.listSides.printListSides();
                 
