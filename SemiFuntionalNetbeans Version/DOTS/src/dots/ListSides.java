@@ -157,6 +157,7 @@ public class ListSides {
                     }else{
                        poliPlayer1 = poliPlayer1 + "," + temp.data.x + "," + temp.data.y; 
                     }
+                    verif++;
                     temp = temp.next;   
                 }
                 if (poliPlayer1 == null){
@@ -178,6 +179,7 @@ public class ListSides {
                     }else{
                        poliPlayer2 = poliPlayer2 + "," + temp.data.x + "," + temp.data.y; 
                     }
+                    verif++;
                     temp = temp.next;
             }
                 if (poliPlayer2 == null){
