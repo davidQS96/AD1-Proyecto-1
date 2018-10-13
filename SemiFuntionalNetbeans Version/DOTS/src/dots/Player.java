@@ -13,6 +13,10 @@ public class Player {
 	 * @param oponent : es el jugador que esta en contra, el otro cliente
 	 */
 	private int points = 0;
+
+    public int getPoints() {
+        return points;
+    }
 	private final char number;
 	private Player Opponent;
         private boolean myTurn = false;
