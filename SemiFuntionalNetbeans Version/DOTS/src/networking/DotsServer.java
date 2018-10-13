@@ -39,10 +39,10 @@ public class DotsServer {
                 
             while(true){
                 if(game == null){
-                    game = new Game(4, 4);
+                    game = new Game(6, 6);
                     System.out.println("Creo juego");
                 } else if(game.HasFinished()){
-                    game = new Game(4, 4);
+                    game = new Game(6, 6);
                 }
                 System.out.println("Player 1 is: " + game.getPlayer1().hasBeenAssigned());
                 System.out.println("Player 2 is: " + game.getPlayer2().hasBeenAssigned());

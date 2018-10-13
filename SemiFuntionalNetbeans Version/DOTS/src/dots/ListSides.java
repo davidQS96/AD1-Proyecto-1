@@ -158,7 +158,7 @@ public class ListSides {
                 if (poliPlayer1 == null){
                         poliPlayer1 = temp.data.x + "," + temp.data.y;
                     }else{
-                       poliPlayer1 = poliPlayer1 + "," + temp.data.x + "," + temp.data.y; 
+                       poliPlayer1 = poliPlayer1 + "," + temp.data.x + "," + temp.data.y + "\\."; 
                     }
             }else if (jugador == 2){
                 Nodo<Dot> temp = general.first;
@@ -173,7 +173,7 @@ public class ListSides {
                 if (poliPlayer2 == null){
                         poliPlayer2 = temp.data.x + "," + temp.data.y;
                     }else{
-                       poliPlayer2 = poliPlayer2 + "," + temp.data.x + "," + temp.data.y; 
+                       poliPlayer2 = poliPlayer2 + "," + temp.data.x + "," + temp.data.y + "\\."; 
                     }
         }
         }
